@@ -1,0 +1,144 @@
+﻿body {
+    display:flex;
+    flex-direction:column;
+}
+
+#LearningPgHeading p {
+    margin: 0px;
+    color: #163984;
+    font-size: 18px;
+    letter-spacing: 25%;
+}
+
+#LearningPgHeading h1 {
+    margin: 0px 0px 20px 0px;
+    font-size: 40px;
+}
+
+.LearningPgSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    gap: 20px;
+}
+
+.LearningPgBox {
+    background-color:white;
+    width:stretch;
+    display:flex;
+    flex-direction:row;
+    padding: 10px 20px 10px 20px;
+    border-radius:30px;
+    gap:20px;
+}
+
+.LearningPgBoxTitle {
+    font-family: "Nunito Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+    font-variation-settings: "wdth" 100, "YTLC" 500;
+    font-size: 16px;
+    letter-spacing:5%;
+    margin:0px;
+}
+
+.LearningPgBoxNum {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 25px;
+    margin: 0px;
+}
+
+.LearningPgSection2 {
+
+}
+
+.ContinueLearningBox {
+    background-color: white;
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+    padding: 50px;
+    border-radius: 30px;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ContinueLearningBox p{
+    font-family: "Archivo Black", sans-serif;
+    margin:0;
+}
+
+.BrowseCourseBtn {
+    background-color: #163984;
+    display: block;
+    padding: 13px 28px;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    width: fit-content;
+}
+
+.CertificateBox {
+    display:flex;
+    flex-direction:column;
+    background: white;
+    border-radius: 30px;
+    padding: 36px 24px;
+    text-align: center;
+    align-items:center;
+}
+
+.CertificateBox p{
+    font-family: "Nunito Sans", sans-serif;
+    font-size:13px;
+    color:#163984;
+    letter-spacing:5%;
+    font-weight: bold;
+    margin-bottom:10px;
+}
+
+.CertificateBox h1{
+    font-family: "Archivo Black", sans-serif;
+    font-size:17px;
+    margin-bottom:20px;
+    margin-top:0px;
+}
+
+.DownloadCertificateBtn {
+    background-color:#163984;
+    display: block;
+    padding: 13px 28px;
+    border-radius: 999px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    width: fit-content;
+}
+
+.cert_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 340px));
+    gap: 24px;
+}
+
+.icon {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 20px;
+    background-color: #163984;
+    color: #ffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

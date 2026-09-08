@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace WAPP_EduNexus_App.Guest
+namespace WAPP_EduNexus_App
 {
-    public partial class TestingPage : System.Web.UI.Page
+    public partial class MyLearningPage : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

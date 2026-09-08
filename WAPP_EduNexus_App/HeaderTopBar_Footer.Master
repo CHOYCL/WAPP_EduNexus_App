@@ -1,0 +1,77 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="HeaderTopBar_Footer.Master.cs" Inherits="WAPP_EduNexus_App.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>EduNexus</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+
+<link href="HeaderTopBar.css" rel="stylesheet">
+
+<asp:ContentPlaceHolder ID="head" runat="server">
+</asp:ContentPlaceHolder>
+</head>
+
+<body>
+<form id="form1" runat="server">
+
+    <%-- HEADER TOP BAR --%>
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="/" class="logo">EduNexus</a>
+        <nav class="main-nav" aria-label="Primary">
+          <a href="/" class="nav-link">Home</a>
+          <a href="/courses" class="nav-link">Browse Courses</a>
+          <a href="/my-learning" class="nav-link active" aria-current="page">My Learning</a>
+        </nav>
+        <div class="user-badge">
+          <span class="avatar" aria-hidden="true">C</span>
+          <span class="user-name">Choy</span>
+        </div>
+      </div>
+    </header>
+
+
+    <%-- PAGE-SPECIFIC CONTENT --%>
+    <main class="page-content">
+
+        <asp:ContentPlaceHolder
+            ID="ContentPlaceHolder1"
+            runat="server">
+
+        </asp:ContentPlaceHolder>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <p class="footer-logo">EduNexus</p>
+          <p class="footer-desc">A platform for people who love <br /> learning — design, music, cooking, code,<br /> and more.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <p class="footer-heading">Explore</p>
+            <a href="/courses">All course</a>
+            <a href="/music">Music</a>
+            <a href="/cooking">Cooking</a>
+            <a href="/design">Design</a>
+          </div>
+          <div class="footer-col">
+            <p class="footer-heading">Account</p>
+            <a href="/signup">Create an account</a>
+            <a href="/login">Login</a>
+            <a href="/my-learning">My learning</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+</form>
+</body>
+</html>

@@ -7,9 +7,19 @@ using System.Web.UI.WebControls;
 
 namespace WAPP_EduNexus_App
 {
-    public partial class About : Page
+    public partial class BrowseCourse : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void btnApply_Click(object sender, EventArgs e)
         {
 
         }

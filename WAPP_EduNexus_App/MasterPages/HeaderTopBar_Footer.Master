@@ -26,9 +26,26 @@
       <div class="header-inner">
         <a href="/" class="logo">EduNexus</a>
         <nav class="main-nav" aria-label="Primary">
-          <a href="/" class="nav-link">Home</a>
-          <a href="/courses" class="nav-link">Browse Courses</a>
-          <a href="/my-learning" class="nav-link active" aria-current="page">My Learning</a>
+            <a id="navHome"
+               runat="server"
+               href="~/LearningResourcePg/Home.aspx"
+               class="nav-link">
+                Home
+            </a>
+
+            <a id="navBrowse"
+               runat="server"
+               href="~/LearningResourcePg/BrowseCourse.aspx"
+               class="nav-link">
+                Browse Courses
+            </a>
+
+            <a id="navLearning"
+               runat="server"
+               href="~/LearningResourcePg/MyLearningPage.aspx"
+               class="nav-link">
+                My Learning
+            </a>
         </nav>
         <div class="user-badge">
           <span class="avatar" aria-hidden="true">C</span>

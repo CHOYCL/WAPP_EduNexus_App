@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/HeaderTopBar_Footer.Master" AutoEventWireup="true" CodeBehind="MyLearningPage.aspx.cs" Inherits="WAPP_EduNexus_App.MyLearningPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/HeaderTopBar_Footer.Master" AutoEventWireup="true" CodeBehind="MyLearningPage.aspx.cs" Inherits="WAPP_EduNexus_App.MyLearningPage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

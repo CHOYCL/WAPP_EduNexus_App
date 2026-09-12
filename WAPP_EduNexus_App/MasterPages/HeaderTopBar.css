@@ -88,11 +88,11 @@ a {
 }
 
     .nav-link:hover {
-        color: var(--blue-accent);
+        color: #163984;
     }
 
     .nav-link.active {
-        color: var(--blue-accent);
+        color: #163984;
         font-weight: 600;
     }
 

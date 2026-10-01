@@ -1,0 +1,70 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminHeader_Footer.Master.cs" Inherits="WAPP_EduNexus_App.Site2" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+
+    <link href="AdminHeader_Footer.css" rel="stylesheet">
+
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+        <header class="site-header">
+            <div class="header-inner">
+            <a href="/" class="logo">EduNexus</a>
+            <nav class="main-nav" aria-label="Primary">
+                <a id="Dashboard"
+                    runat="server"
+                    href="Home.aspx"
+                    class="nav-link">
+                    Dashboard
+                </a>
+
+                <a id="ManageCourses"
+                    runat="server"
+                    href=".aspx"
+                    class="nav-link">
+                    Manage Courses
+                </a>
+
+                <a id="ManageUsers"
+                    runat="server"
+                    href=".aspx"
+                    class="nav-link">
+                    Manage Users
+                </a>
+
+            </nav>
+                <div class="user-badge">
+                    <a id="adminProfile"
+                        runat="server"
+                        href=".aspx"
+                        class="nav-link">
+                        Profile
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="page-content">
+
+            <asp:ContentPlaceHolder
+                ID="ContentPlaceHolder2"
+                runat="server">
+
+            </asp:ContentPlaceHolder>
+
+        </main>
+    </form>
+</body>
+</html>

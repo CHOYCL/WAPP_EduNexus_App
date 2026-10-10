@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WAPP_EduNexus_App
+namespace WAPP_EduNexus_App.CommonPage
 {
 
 
-    public partial class WebForm1
+    public partial class RegisterPage
     {
 
         /// <summary>
@@ -42,6 +42,24 @@ namespace WAPP_EduNexus_App
         protected global::System.Web.UI.WebControls.TextBox txtUsername;
 
         /// <summary>
+        /// LabelEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelEmail;
+
+        /// <summary>
+        /// txtEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEmail;
+
+        /// <summary>
         /// LabelPassword control.
         /// </summary>
         /// <remarks>
@@ -60,6 +78,24 @@ namespace WAPP_EduNexus_App
         protected global::System.Web.UI.WebControls.TextBox txtPassword;
 
         /// <summary>
+        /// LabelConfirm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelConfirm;
+
+        /// <summary>
+        /// txtConfirm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtConfirm;
+
+        /// <summary>
         /// errorMsg control.
         /// </summary>
         /// <remarks>
@@ -69,12 +105,12 @@ namespace WAPP_EduNexus_App
         protected global::System.Web.UI.WebControls.Label errorMsg;
 
         /// <summary>
-        /// btnLogin control.
+        /// btnRegister control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
+        protected global::System.Web.UI.WebControls.Button btnRegister;
     }
 }

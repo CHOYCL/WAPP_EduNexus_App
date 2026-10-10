@@ -102,6 +102,13 @@
     <Content Include="App_Data\Courses_log.ldf">
       <DependentUpon>Courses.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\Users.mdf" />
+    <Content Include="App_Data\Users_log.ldf">
+      <DependentUpon>Users.mdf</DependentUpon>
+    </Content>
+    <Content Include="CommonPage\LoginRegister.css" />
+    <Content Include="CommonPage\logo.png" />
+    <Content Include="CommonPage\RegisterPage.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -182,6 +189,13 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CommonPage\RegisterPage.aspx.cs">
+      <DependentUpon>RegisterPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CommonPage\RegisterPage.aspx.designer.cs">
+      <DependentUpon>RegisterPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="LearningResourcePg\CourseDetail.aspx.cs">
       <DependentUpon>CourseDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -227,6 +241,7 @@
     <Compile Include="MasterPages\AdminHeader_Footer.Master.designer.cs">
       <DependentUpon>AdminHeader_Footer.Master</DependentUpon>
     </Compile>
+    <Compile Include="PasswordHashing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

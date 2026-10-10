@@ -1,0 +1,173 @@
+﻿
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #EAF2EF;
+    color: #222;
+}
+
+
+.logincard {
+    display: flex;
+    width: 900px;
+    max-width: 95%;
+    margin: 120px auto;   
+    background-color: white;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+
+.logoleft {
+    flex: 1; 
+    background-color: #DBEAFE;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+}
+
+.logo {
+    width: 100%;
+    max-width: 300px;
+    mix-blend-mode: multiply; 
+}
+
+.caption {
+    color: #163984;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+
+.loginform {
+    flex: 1; 
+    padding: 50px 40px;
+}
+
+.welcome {
+    text-align: center;
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+h1 {
+    text-align: center;
+    color: #163984;
+    margin: 5px 0 30px 0;
+}
+
+/* Space between each row */
+.field {
+    margin-bottom: 20px;
+}
+
+/* Small label above each textbox */
+.label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #163984;
+}
+
+/* Textboxes */
+.input {
+    width: 100%;
+    padding: 12px 20px;
+    margin-top: 5px;
+    border: 2px solid #DBEAFE;
+    border-radius: 30px;
+    background-color: white;
+    font-family: inherit;
+    box-sizing: border-box; /* padding stays inside the width */
+}
+
+    /* When the user clicks inside a textbox */
+    .input:focus {
+        border-color: #163984;
+        outline: none;
+    }
+
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+
+.registertext {
+    text-align: center;
+    font-size: 14px;
+    margin: 30px 0 20px 0;
+}
+
+a {
+    color: #163984;
+    font-weight: 600;
+}
+
+
+.buttoncontainer {
+    display: flex; 
+    border: 2px solid #DBEAFE;
+    border-radius: 40px;
+    padding: 6px;
+}
+
+
+.button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 30px;
+    background-color: #163984;
+    color: white;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    .button:hover {
+        background-color: #0B0050;
+    }
+
+/* Register link (not filled) */
+.switch-link {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 30px;
+}
+
+    .switch-link:hover {
+        background-color: #DBEAFE;
+    }
+
+
+@media (max-width: 700px) {
+    .logincard {
+        flex-direction: column; 
+        margin: 30px auto; 
+    }
+
+    .logoleft {
+        padding: 20px; 
+    }
+
+    .logo {
+        max-width: 160px; 
+    }
+
+    .caption {
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .loginform {
+        padding: 30px 20px; 
+    }
+}

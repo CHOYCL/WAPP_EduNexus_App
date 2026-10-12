@@ -102,10 +102,6 @@
     <Content Include="App_Data\Courses_log.ldf">
       <DependentUpon>Courses.mdf</DependentUpon>
     </Content>
-    <Content Include="App_Data\Users.mdf" />
-    <Content Include="App_Data\Users_log.ldf">
-      <DependentUpon>Users.mdf</DependentUpon>
-    </Content>
     <Content Include="CommonPage\LoginRegister.css" />
     <Content Include="CommonPage\logo.png" />
     <Content Include="CommonPage\RegisterPage.aspx" />

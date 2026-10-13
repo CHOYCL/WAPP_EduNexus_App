@@ -132,10 +132,8 @@ namespace WAPP_EduNexus_App
             string category = ddlCategory.SelectedValue;
             string level = ddlLevel.SelectedValue;
 
-            // TODO:
-            // Apply these filters to your course database query.
-            // Example:
-            // LoadCourses(searchText, category, level);
+            // Apply filters and reload the course list
+            LoadCourses(searchText, category, level);
         }
 
         protected void btnSaveCourse_Click(object sender, EventArgs e)
@@ -317,7 +315,7 @@ namespace WAPP_EduNexus_App
             );
         }
 
-        private void LoadCourses()
+        private void LoadCourses(string searchText = null, string category = null, string level = null)
         {
             string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             var dt = new DataTable();
@@ -340,13 +338,40 @@ namespace WAPP_EduNexus_App
                     bool hasImage = schemaCols.Contains("Image");
                     string thumbnailExpr = hasImage ? "Image AS Thumbnail" : "NULL AS Thumbnail";
 
-                    string sql = $"SELECT courseID, courseTitle, Category, level, Description AS MetaInfo, Instructor AS InstructorName, Price, {thumbnailExpr}, NULL AS InstructorInitials, 0 AS Students FROM CourseDetailTable ORDER BY courseID DESC";
+                    // Build parameterized query with optional filters
+                    var sqlBuilder = new System.Text.StringBuilder();
+                    sqlBuilder.Append($"SELECT courseID, courseTitle, Category, level, Description AS MetaInfo, Instructor AS InstructorName, Price, {thumbnailExpr}, NULL AS InstructorInitials, 0 AS Students FROM CourseDetailTable WHERE 1=1");
 
-                    using (var cmd = new SqlCommand(sql, con))
+                    var cmd = new SqlCommand();
+                    cmd.Connection = con;
+
+                    if (!string.IsNullOrWhiteSpace(searchText))
+                    {
+                        sqlBuilder.Append(" AND (courseTitle LIKE @search OR Description LIKE @search OR Instructor LIKE @search)");
+                        cmd.Parameters.AddWithValue("@search", "%" + searchText + "%");
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(category))
+                    {
+                        sqlBuilder.Append(" AND Category = @category");
+                        cmd.Parameters.AddWithValue("@category", category);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(level))
+                    {
+                        sqlBuilder.Append(" AND level = @level");
+                        cmd.Parameters.AddWithValue("@level", level);
+                    }
+
+                    sqlBuilder.Append(" ORDER BY courseID DESC");
+
+                    cmd.CommandText = sqlBuilder.ToString();
+
                     using (var da = new SqlDataAdapter(cmd))
                     {
                         da.Fill(dt);
                     }
+                    cmd.Dispose();
                 }
 
                 if (dt.Rows.Count == 0)

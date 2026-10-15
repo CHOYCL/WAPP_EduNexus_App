@@ -32,7 +32,7 @@
 
                 <a id="ManageCourses"
                     runat="server"
-                    href=".aspx"
+                    href="~/Admin/AdminManageCourse.aspx"
                     class="nav-link">
                     Manage Courses
                 </a>

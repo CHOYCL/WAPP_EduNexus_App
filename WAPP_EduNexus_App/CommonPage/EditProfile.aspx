@@ -15,7 +15,7 @@
             <br />
             <asp:Label ID="lblMessage" runat="server" CssClass="profilemessage" Visible="False"></asp:Label>
 
-            <!-- ===== VIEW MODE: just shows the details ===== -->
+             <!-- View Only-->
             <asp:Panel ID="pnlView" runat="server">
                 <table style="width:100%;">
                     <tr>
@@ -63,7 +63,7 @@
                 </table>
             </asp:Panel>
 
-            <!-- ===== EDIT MODE: hidden until the user clicks Edit ===== -->
+            <!-- Edit-->
             <asp:Panel ID="pnlEdit" runat="server" Visible="False">
                 <table style="width:100%;">
                     <tr>

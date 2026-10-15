@@ -32,7 +32,7 @@ namespace WAPP_EduNexus_App
                 con.Open();
 
                 // Find the user by username
-                string query = "SELECT PasswordHash, Role FROM Users WHERE Username = @username";
+                string query = "SELECT Id, PasswordHash, Role FROM Users WHERE Username = @username";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@username", txtUsername.Text);
 
@@ -49,6 +49,7 @@ namespace WAPP_EduNexus_App
                         // Remember who logged in
                         Session["Username"] = txtUsername.Text;
                         Session["Role"] = role;
+                        Session["UserId"] = reader["Id"].ToString();
 
                         reader.Close();
                         con.Close();
@@ -60,7 +61,7 @@ namespace WAPP_EduNexus_App
                         }
                         else
                         {
-                            Response.Redirect("HomePage.aspx");
+                            Response.Redirect("EditProfile.aspx");
                         }
                     }
                     else

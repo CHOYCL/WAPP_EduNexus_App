@@ -19,7 +19,7 @@
                 <p class="caption">Your learning journey starts here.</p>
             </div>
 
-            <!-- RIGHT SIDE: login form -->
+           
             <div class="loginform">
 
                 <p class="welcome">Welcome</p>

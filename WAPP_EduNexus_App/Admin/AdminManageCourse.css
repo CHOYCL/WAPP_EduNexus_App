@@ -41,11 +41,24 @@ button:hover {
 }
 
 
+input#ContentPlaceHolder2_btnCreateCourse {
+    background-color: #163984;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border-style: none;
+    width: 100%;
+    height: 50px;
+    border-radius: 15px;
+    cursor:pointer;
+}
+
+
 /*section2*/
 .Section2 {
-    display:flex;
-    flex-direction:row;
-    justify-content:space-between;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     gap: 5%;
 }
 

@@ -1,0 +1,115 @@
+﻿body {
+    display: flex;
+    flex-direction: column;
+}
+
+.Section1 {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+    width: 90%;
+    height: fit-content;
+    border-radius: 30px;
+}
+
+.contentIMG_VID {
+    width: 48%;
+}
+
+.courseMedia {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.media-placeholder {
+    border-radius: 18px;
+    padding: 24px;
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-description {
+    margin-left: 50px;
+    width: 52%;
+}
+
+.titleNaming {
+    font-weight: 600;
+    letter-spacing: 5%;
+    font-size: 12px;
+    margin-bottom: 0px;
+}
+
+.course-title {
+    font-weight: 700;
+    font-size: 24px;
+    margin: 8px 0 12px 0;
+}
+.divider {
+    width: 40px;
+    border: none;
+    border-top: 3px dashed #1f2937;
+    margin: 8px 0 18px 0;
+}
+.course-desc {
+    margin-top: 0px;
+    font-weight: 300;
+    font-size: 15px;
+    text-align:left;
+    color: #374151;
+}
+
+.tag-row {
+    margin-top: 18px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+.tag-pill {
+    background: #eef2ff;
+    color: #0f172a;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-weight:600;
+    box-shadow: 0 2px 8px rgba(15,23,42,0.06);
+}
+
+.upload-controls {
+    margin-top: 18px;
+    display:flex;
+    gap:8px;
+    align-items:flex-start;
+    flex-direction:column;
+}
+
+input#ContentPlaceHolder2_btnEditTitle {
+    background-color: #d7e2ff;
+    border-style: none;
+    width: 100px;
+    height: 30px;
+    border-radius: 100px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input#ContentPlaceHolder2_btnEditTitle:hover {
+    transform: scale(1.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;  
+}
+
+input#ContentPlaceHolder2_btnEditDescription {
+    background-color: #d7e2ff;
+    border-style: none;
+    width: 100px;
+    height: 30px;
+    border-radius: 100px;
+    font-weight: bold;
+    cursor:pointer;
+}
+input#ContentPlaceHolder2_btnEditDescription:hover {
+    transform: scale(1.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}

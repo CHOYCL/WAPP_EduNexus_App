@@ -96,6 +96,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\AdminManageCourseDetail.css" />
+    <Content Include="Admin\AdminManageCourseDetail.aspx" />
     <Content Include="Admin\AdminManageCourse.aspx" />
     <Content Include="Admin\AdminManageCourse.css" />
     <Content Include="App_Data\Courses.mdf" />
@@ -135,7 +137,6 @@
     <Content Include="Global.asax" />
     <Content Include="LearningResourcePg\MyLearningPage.aspx" />
     <Content Include="LearningResourcePg\MyLearningPage.css" />
-    <Content Include="IMG\PhotographyCardPhoto.jpg" />
     <Content Include="MasterPages\AdminHeader_Footer.css" />
     <Content Include="CommonPage\LoginPage.aspx" />
     <Content Include="MasterPages\AdminHeader_Footer.Master" />
@@ -180,6 +181,13 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AdminManageCourseDetail.aspx.cs">
+      <DependentUpon>AdminManageCourseDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminManageCourseDetail.aspx.designer.cs">
+      <DependentUpon>AdminManageCourseDetail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\AdminManageCourse.aspx.cs">
       <DependentUpon>AdminManageCourse.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

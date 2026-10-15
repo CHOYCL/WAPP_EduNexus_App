@@ -8,7 +8,7 @@
             <div class="TitleSection">
                 <h1 class="page-title">Course Management</h1>
                 <p>Manage catalog curriculum status, instructor assignments,<br /> pricing, and enrollments.</p>
-                <button type="button" onclick="openForm()">Create New Course</button>
+                <asp:Button ID="btnCreateCourse" runat="server" Text="Create New Course" CssClass="create-button" OnClick="btnCreateCourse_Click" />
             </div>
         </section>
 
@@ -215,18 +215,21 @@
     </div>
 
     <script type="text/javascript">
+        // @ts-nocheck
         function openForm() {
-            document.getElementById('courseModal').style.display = 'flex';
+            var modal = document.getElementById('courseModal');
+            if (modal) modal.style.display = 'flex';
         }
 
         function closeForm() {
-            document.getElementById('courseModal').style.display = 'none';
+            var modal = document.getElementById('courseModal');
+            if (modal) modal.style.display = 'none';
         }
 
         // Close modal when clicking outside the form
         window.addEventListener('click', function (event) {
             var modal = document.getElementById('courseModal');
-            if (event.target === modal) {
+            if (modal && event.target === modal) {
                 closeForm();
             }
         });
@@ -239,6 +242,8 @@
         });
     </script>
     <script type="text/javascript">
+        // @ts-nocheck
+        /** @param {HTMLInputElement} chk */
         function onCourseCheckboxChange(chk) {
             // Find the parent course-row element
             var node = chk;
@@ -248,8 +253,9 @@
             if (actions) actions.style.display = chk.checked ? 'flex' : 'none';
         }
 
+        /** @param {HTMLInputElement} master */
         function toggleSelectAll(master) {
-            var boxes = document.querySelectorAll('.select-course-checkbox');
+            var boxes = /** @type {NodeListOf<HTMLInputElement>} */ (document.querySelectorAll('.select-course-checkbox'));
             boxes.forEach(function (b) {
                 b.checked = master.checked;
                 // trigger change handler to show/hide actions
@@ -258,6 +264,7 @@
         }
 
         // Preview selected image file in the modal before upload
+        /** @param {HTMLInputElement} input */
         function previewFile(input) {
             if (!input || !input.files || !input.files[0]) return;
             var file = input.files[0];
@@ -270,8 +277,8 @@
             var reader = new FileReader();
             reader.onload = function (e) {
                 var img = document.getElementById('<%= imgPreview.ClientID %>');
-                if (img) {
-                    img.src = e.target.result;
+                if (img && e && e.target) {
+                    /** @type {HTMLImageElement} */ (img).src = /** @type {any} */ (e.target.result);
                     img.style.display = 'block';
                 }
             };

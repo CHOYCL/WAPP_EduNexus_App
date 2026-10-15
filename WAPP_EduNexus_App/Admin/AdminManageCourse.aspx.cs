@@ -54,9 +54,15 @@ namespace WAPP_EduNexus_App
                 int id;
                 if (int.TryParse(e.CommandArgument?.ToString(), out id))
                 {
-                    LoadCourseIntoForm(id);
+                    // Redirect to the course detail page for editing
+                    Response.Redirect("AdminManageCourseDetail.aspx?courseId=" + id);
                 }
             }
+        }
+
+        protected void btnCreateCourse_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminManageCourseDetail.aspx");
         }
 
         private void LoadCourseIntoForm(int courseId)

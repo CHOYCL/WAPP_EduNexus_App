@@ -106,6 +106,9 @@
     <Content Include="App_Data\Users_log.ldf">
       <DependentUpon>Users.mdf</DependentUpon>
     </Content>
+    <Content Include="CommonPage\default-avatar.jpg" />
+    <Content Include="CommonPage\EditProfile.aspx" />
+    <Content Include="CommonPage\EditProfile.css" />
     <Content Include="CommonPage\LoginRegister.css" />
     <Content Include="CommonPage\logo.png" />
     <Content Include="CommonPage\RegisterPage.aspx" />
@@ -189,6 +192,13 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CommonPage\EditProfile.aspx.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CommonPage\EditProfile.aspx.designer.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CommonPage\RegisterPage.aspx.cs">
       <DependentUpon>RegisterPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -281,6 +291,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Member\" />
+    <Folder Include="ProfilePicture\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

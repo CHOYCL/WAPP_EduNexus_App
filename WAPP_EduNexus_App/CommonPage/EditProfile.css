@@ -1,0 +1,103 @@
+﻿/* ===== Colours =====
+   Mint Cream #EAF2EF | Alice Blue #DBEAFE | French Blue #163984 | Deep Twilight #0B0050 */
+
+/* Mint background around the card */
+.profilepage {
+    background-color: #EAF2EF;
+    padding: 40px 0;
+    font-family: 'Poppins', Arial, sans-serif;
+    color: #222;
+}
+
+/* The white box in the middle */
+.profilecard {
+    background-color: white;
+    width: 500px;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 30px;
+}
+
+.profiletitle {
+    color: #163984;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* Left column of the table (the labels) */
+.profilelabel {
+    width: 170px;
+    padding: 10px 0;
+    font-weight: 600;
+    color: #163984;
+    vertical-align: middle;
+}
+
+.profilevalue {
+    padding: 10px 0;
+}
+
+/* Profile picture */
+.profileavatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* makes the picture round */
+    border: 3px solid #DBEAFE;
+    object-fit: cover; /* stops the picture from stretching */
+}
+
+/* Textboxes */
+.profileinput {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #DBEAFE;
+    border-radius: 20px;
+    background-color: white;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+    .profileinput:focus {
+        border-color: #163984;
+        outline: none;
+    }
+
+/* Filled button (Edit / Save) */
+.profilebutton {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 20px;
+    background-color: #163984;
+    color: white;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    .profilebutton:hover {
+        background-color: #0B0050;
+    }
+
+/* Outline button (Cancel) */
+.profilecancel {
+    padding: 10px 30px;
+    border: 2px solid #163984;
+    border-radius: 20px;
+    background-color: white;
+    color: #163984;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+   .profilecancel:hover {
+    background-color: #DBEAFE;
+    }
+
+
+
+/* Message (error or success) */
+.profilemessage {
+    color: red;
+}

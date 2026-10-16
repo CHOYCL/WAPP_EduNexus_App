@@ -28,7 +28,7 @@ namespace WAPP_EduNexus_App
 
             try
             {
-                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["UsersEduNexusDB"].ConnectionString);
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
                 con.Open();
 
                 // Find the user by username

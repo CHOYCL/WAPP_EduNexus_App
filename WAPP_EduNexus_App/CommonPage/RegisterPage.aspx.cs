@@ -30,7 +30,7 @@ namespace WAPP_EduNexus_App.CommonPage
 
             try
             {
-                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["UsersEduNexusDB"].ConnectionString);
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
                 con.Open();
 
                 // Check if the username or email is already used

@@ -21,7 +21,7 @@ namespace WAPP_EduNexus_App.CommonPage
                 // Only load profile data from the database on the initial page load
                 if (!Page.IsPostBack)
                 {
-                    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["UsersEduNexusDB"].ConnectionString);
+                    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
                     con.Open();
 
                     SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Users WHERE Username = @username", con);
@@ -111,7 +111,7 @@ namespace WAPP_EduNexus_App.CommonPage
 
             try
             {
-                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["UsersEduNexusDB"].ConnectionString);
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
                 con.Open();
 
                 // Check if the new username or email belongs to another user

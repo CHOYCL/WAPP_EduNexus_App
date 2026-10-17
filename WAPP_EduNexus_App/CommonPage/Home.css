@@ -1,0 +1,333 @@
+﻿
+.homepage {
+    background-color: #EAF2EF;
+    padding: 40px 0;
+    font-family: 'Poppins', Arial, sans-serif;
+    color: #222;
+}
+
+/* Keeps the content centered */
+.homewrap {
+    width: 1100px;
+    max-width: 92%;
+    margin: 0 auto;
+}
+
+/* logo image */
+.homehero {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr; /* two columns: text and picture */
+    gap: 40px;
+    align-items: center;
+    background-color: #DBEAFE;
+    border-radius: 30px;
+    padding: 50px;
+}
+
+.homelabel {
+    color: #163984;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin: 0 0 10px 0;
+}
+
+.homeheadline {
+    font-size: 42px;
+    line-height: 1.2;
+    color: #0B0050;
+    margin: 0 0 15px 0;
+}
+
+.homehighlight {
+    color: #163984;
+}
+
+.homesubtext {
+    color: #444;
+    margin: 0 0 20px 0;
+}
+
+.homesearch {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.homesearchbox {
+    flex: 1;
+    padding: 12px 20px;
+    border: 2px solid white;
+    border-radius: 25px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+    .homesearchbox:focus {
+        border-color: #163984;
+        outline: none;
+    }
+
+.hometags {
+    font-size: 13px;
+    color: #555;
+    margin: 0 0 20px 0;
+}
+
+    .hometags a {
+        color: #163984;
+        font-weight: 600;
+        margin-left: 8px;
+        text-decoration: none;
+    }
+
+.homebuttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Filled button (also used for the Search button) */
+.homebutton {
+    display: inline-block;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 25px;
+    background-color: #163984;
+    color: white;
+    font-family: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .homebutton:hover {
+        background-color: #0B0050;
+    }
+
+/* Outline button */
+.homebuttonoutline {
+    display: inline-block;
+    padding: 10px 26px;
+    border: 2px solid #163984;
+    border-radius: 25px;
+    background-color: white;
+    color: #163984;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+    .homebuttonoutline:hover {
+        background-color: #EAF2EF;
+    }
+
+/* Picture and the small card on top of it */
+.homeheroimage {
+    position: relative;
+}
+
+.homeherophoto {
+    width: 100%;
+    height: 350px;
+    object-fit: cover; /* crops the picture without stretching it */
+    border-radius: 25px;
+    display: block;
+}
+
+.homebadge {
+    position: absolute; /* floats on top of the picture */
+    left: -20px;
+    bottom: 20px;
+    background-color: white;
+    padding: 12px 18px;
+    border-radius: 15px;
+    font-size: 13px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+    .homebadge strong {
+        color: #163984;
+    }
+
+/* ===== SECTIONS ===== */
+.homesection {
+    margin-top: 60px;
+}
+
+.homesectionhead {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.homesectionlabel {
+    color: #163984;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin: 0 0 8px 0;
+}
+
+.homesectiontitle {
+    font-size: 30px;
+    color: #0B0050;
+    margin: 0 0 8px 0;
+}
+
+.homesectiontext {
+    color: #555;
+    margin: 0;
+}
+
+/* 3 equal columns / 4 equal columns */
+.homecards3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* White rounded card */
+.homecard {
+    background-color: white;
+    border-radius: 20px;
+    padding: 25px;
+}
+
+.homestepnumber {
+    font-size: 40px;
+    font-weight: 700;
+    color: #DBEAFE;
+    margin: 0;
+}
+
+
+.homecardtitle {
+    font-size: 18px;
+    color: #163984;
+    margin: 12px 0 8px 0;
+}
+
+.homecardtext {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 15px 0;
+}
+
+.homecardlink {
+    color: #163984;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+    .homecardlink:hover {
+        text-decoration: underline;
+    }
+
+/* ===== WHY EDUNEXUS + CALL TO ACTION ===== */
+.homewhy {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 60px;
+}
+
+.homewhyleft {
+    background-color: white;
+    border-radius: 25px;
+    padding: 40px;
+}
+
+.homereasons {
+    padding-left: 20px;
+    margin: 15px 0 0 0;
+    color: #444;
+    line-height: 2;
+}
+
+.homecta {
+    background-color: #163984;
+    color: white;
+    border-radius: 25px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.homectatitle {
+    font-size: 28px;
+    margin: 0 0 10px 0;
+}
+
+.homecta p {
+    color: #DBEAFE;
+    margin: 0 0 20px 0;
+}
+
+.homectabutton {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 12px 30px;
+    border-radius: 25px;
+    background-color: white;
+    color: #163984;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.homectabutton:hover {
+    background-color: #DBEAFE;
+}
+
+/* ===== POPULAR CATEGORIES (one card) ===== */
+.homecategorybox {
+    background-color: white;
+    border-radius: 25px;
+    padding: 40px;
+    text-align: center;
+}
+
+.homecategorylist {
+    display: flex;
+    flex-wrap: wrap; /* moves tags to a new line when there's no room */
+    justify-content: center;
+    gap: 12px;
+    margin: 25px 0 30px 0;
+}
+
+/* One tag (a rounded pill) */
+.homecategory {
+    padding: 10px 22px;
+    border-radius: 25px;
+    background-color: #DBEAFE;
+    color: #163984;
+    font-weight: 600;
+}
+
+/* PHONES AND SMALL SCREENS */
+@media (max-width: 800px) {
+    .homehero {
+        grid-template-columns: 1fr; /* stack text above picture */
+        padding: 30px;
+    }
+
+    .homeheadline {
+        font-size: 32px;
+    }
+
+    .homebadge {
+        left: 10px;
+    }
+
+    .homecards3 {
+        grid-template-columns: 1fr;
+    }
+
+    .homewhy {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+}

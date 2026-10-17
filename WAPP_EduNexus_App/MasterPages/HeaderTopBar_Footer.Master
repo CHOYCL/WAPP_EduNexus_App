@@ -28,7 +28,7 @@
         <nav class="main-nav" aria-label="Primary">
             <a id="navHome"
                runat="server"
-               href="~/LearningResourcePg/Home.aspx"
+               href="~/CommonPage/Home.aspx"
                class="nav-link">
                 Home
             </a>

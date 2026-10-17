@@ -111,6 +111,8 @@
     <Content Include="CommonPage\default-avatar.jpg" />
     <Content Include="CommonPage\EditProfile.aspx" />
     <Content Include="CommonPage\EditProfile.css" />
+    <Content Include="CommonPage\Home.aspx" />
+    <Content Include="CommonPage\Home.css" />
     <Content Include="CommonPage\LoginRegister.css" />
     <Content Include="CommonPage\logo.png" />
     <Content Include="CommonPage\RegisterPage.aspx" />
@@ -206,6 +208,13 @@
     </Compile>
     <Compile Include="CommonPage\EditProfile.aspx.designer.cs">
       <DependentUpon>EditProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CommonPage\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CommonPage\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="CommonPage\RegisterPage.aspx.cs">
       <DependentUpon>RegisterPage.aspx</DependentUpon>

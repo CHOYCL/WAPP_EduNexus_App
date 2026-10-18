@@ -61,7 +61,7 @@ namespace WAPP_EduNexus_App
                         }
                         else
                         {
-                            Response.Redirect("EditProfile.aspx");
+                            Response.Redirect("Home.aspx");
                         }
                     }
                     else

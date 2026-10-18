@@ -51,12 +51,20 @@ namespace WAPP_EduNexus_App.CommonPage
             }
             else
             {
-                // Redirect to login if no active session exists
-                Response.Redirect("LoginPage.aspx");
+                // Redirect to homepage
+                Response.Redirect("Home.aspx");
             }
         }
 
-        // Edit button: show the edit boxes
+        // Log Out button
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("Home.aspx");
+        }
+
+        // Edit button
         protected void btnEdit_Click(object sender, EventArgs e)
         {
             txtUsername.Text = lblUsername.Text;

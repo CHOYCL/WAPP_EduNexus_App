@@ -11,7 +11,12 @@ namespace WAPP_EduNexus_App.CommonPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["Username"] != null)
+            {
+                getStartedLink.HRef = "~/LearningResourcePg/MyLearningPage.aspx";
+                getStartedLink.InnerText = "Go to My Learning";
+                LoggedUserMessage.InnerText = "Welcome back " + Session["Username"].ToString() + "! Pick up where you left off.";
+            }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)

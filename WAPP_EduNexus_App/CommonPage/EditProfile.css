@@ -63,6 +63,22 @@
         outline: none;
     }
 
+/* Log Out button (red) */
+.profilelogout {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 20px;
+    background-color: #D93025;
+    color: white;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    .profilelogout:hover {
+        background-color: #B3261E;
+    }
+
 /* Filled button (Edit / Save) */
 .profilebutton {
     padding: 10px 30px;

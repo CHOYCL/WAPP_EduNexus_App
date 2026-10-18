@@ -117,8 +117,8 @@
 
                 <div class="homecta">
                     <h2 class="homectatitle">Ready to start learning?</h2>
-                    <p>Create your account in a minute and join your first course today.</p>
-                    <a href="~/CommonPage/RegisterPage.aspx" runat="server" class="homectabutton">Get Started</a>
+                    <p id="LoggedUserMessage" runat="server">Create your account in a minute and join your first course today.</p>
+                    <a id="getStartedLink" href="~/CommonPage/RegisterPage.aspx" runat="server" class="homectabutton">Get Started</a>
                 </div>
 
             </div>

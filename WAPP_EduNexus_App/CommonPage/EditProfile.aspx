@@ -58,7 +58,9 @@
                         <td class="profilelabel">
                             <asp:Button ID="btnEdit" runat="server" Text="Edit Profile" CssClass="profilebutton" OnClick="btnEdit_Click" />
                         </td>
-                        <td class="profilevalue">&nbsp;</td>
+                        <td class="profilevalue">
+                            <asp:Button ID="btnLogout" runat="server" Text="Log Out" CssClass="profilelogout" OnClick="btnLogout_Click" CausesValidation="False" />
+                        </td>
                     </tr>
                 </table>
             </asp:Panel>

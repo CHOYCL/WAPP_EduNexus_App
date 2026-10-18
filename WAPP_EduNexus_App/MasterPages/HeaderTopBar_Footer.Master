@@ -47,10 +47,19 @@
                 My Learning
             </a>
         </nav>
-        <div class="user-badge">
-          <span class="avatar" aria-hidden="true">C</span>
-          <span class="user-name">Choy</span>
-        </div>
+        <%-- GUEST --%>
+        <asp:Panel ID="GuestBadge" runat="server" CssClass="header-auth">
+            <a href="~/CommonPage/LoginPage.aspx" runat="server" class="header-login">Login</a>
+            <a href="~/CommonPage/RegisterPage.aspx" runat="server" class="header-signup">Sign Up</a>
+        </asp:Panel>
+
+        <%-- LOGGED USERS --%>
+        <asp:Panel ID="UserBadge" runat="server" CssClass="user-badge" Visible="False">
+            <a href="~/CommonPage/EditProfile.aspx" runat="server" class="header-userlink">
+               <asp:Image ID="imgUser" runat="server" CssClass="header-photo" />
+                <asp:Label ID="lblHeaderName" runat="server" CssClass="username"></asp:Label>
+            </a>
+        </asp:Panel>
       </div>
     </header>
 
@@ -85,9 +94,15 @@
           </div>
           <div class="footer-col">
             <p class="footer-heading">Account</p>
-            <a href="/signup">Create an account</a>
-            <a href="/login">Login</a>
-            <a href="/my-learning">My learning</a>
+
+            <%-- GUEST --%>
+            <a id="footerRegister" runat="server" href="~/CommonPage/RegisterPage.aspx">Create an account</a>
+            <a id="footerLogin" runat="server" href="~/CommonPage/LoginPage.aspx">Login</a>
+
+            <%-- LOGGED IN USER --%>
+            <a id="footerUser" runat="server" href="~/CommonPage/EditProfile.aspx" visible="false"></a>
+
+            <a href="/LearningResourcePg/MyLearningPage.aspx">My learning</a>
           </div>
         </div>
       </div>

@@ -3,11 +3,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="MyLearningPage.css" rel="stylesheet" />
-
+    <asp:Literal ID="ltLearningMessage" runat="server" />
     <div class="page-container">
         <setion id="LearningPgHeading">
         <p>MY LEARNING</p>
-        <h1>Hi Choy</h1>
+        <h1 class="learning-user-greeting">
+            <asp:Literal ID="ltUsername" runat="server" />
+        </h1>
         </setion>
 
         <setion class="LearningPgSection">
@@ -17,7 +19,7 @@
                 </span>
             <div >
                 <p class="LearningPgBoxTitle">ENROLLED</p>
-                <p class="LearningPgBoxNum">0</p>
+                <p class="LearningPgBoxNum"><asp:Literal ID="ltEnrolledCount" runat="server" Text="0" /></p>
             </div>
             </div>
 
@@ -27,7 +29,7 @@
                 </span>
             <div >
                 <p class="LearningPgBoxTitle">IN PROGRESS</p>
-                <p class="LearningPgBoxNum">0</p>
+                <p class="LearningPgBoxNum"><asp:Literal ID="ltInProgressCount" runat="server" Text="0" /></p>
             </div>
             </div>
 
@@ -37,29 +39,108 @@
                 </span>
             <div >
                 <p class="LearningPgBoxTitle">CERTIFICATE</p>
-                <p class="LearningPgBoxNum">0</p>
+                <p class="LearningPgBoxNum"><asp:Literal ID="ltCertificateCount" runat="server" Text="0" /></p>
             </div>
             </div>
         </setion>
 
-        <setion class="LearningPgSection2">
+
+        <section class="LearningPgSection2">
             <h2>Continue learning</h2>
-            <div class="ContinueLearningBox">
-                <p>Nothing in progress</p>
-                <a href="#" class="BrowseCourseBtn">Browse courses</a>
-            </div>
-        </setion>
 
-        <setion>
-            <h2>Completed & Certificates</h2>
+            <!-- Show when the student has no courses in progress -->
+            <asp:Panel ID="pnlNoProgress" runat="server"
+                CssClass="ContinueLearningBox">
+
+                <p>
+                    <asp:Literal ID="ltNoProgressMessage"
+                        runat="server"
+                        Text="Nothing in progress" />
+                </p>
+
+                <asp:HyperLink ID="lnkBrowseCourses"
+                    runat="server"
+                    CssClass="BrowseCourseBtn"
+                    NavigateUrl="~/LearningResourcePg/BrowseCourse.aspx"
+                    Text="Browse courses" />
+
+            </asp:Panel>
+
+            <!-- Show courses whose enrollment status is In Progress -->
+            <div class="ContinueLearningGrid">
+                <asp:Repeater ID="rptInProgressCourses" runat="server">
+                    <ItemTemplate>
+
+                        <div class="ContinueCourseCard">
+                            <p class="course-status">IN PROGRESS</p>
+
+                            <h3>
+                                <%# Server.HtmlEncode(
+                                    Convert.ToString(Eval("courseTitle"))) %>
+                            </h3>
+
+                            <p>
+                                Enrolled on:
+                                <%# Eval("EnrollmentDate", "{0:dd MMM yyyy}") %>
+                            </p>
+
+                            <a class="BrowseCourseBtn"
+                               href='<%# ResolveUrl(
+                                   "~/LearningResourcePg/CourseDetail.aspx?courseId="
+                                   + Eval("courseID")) %>'>
+                                Continue learning
+                            </a>
+                        </div>
+
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+        </section>
+
+
+
+        <section class="LearningPgCompleted">
+            <h2>Completed &amp; Certificates</h2>
+
+            <asp:Panel ID="pnlNoCertificates" runat="server">
+                <p>No certificates available yet.</p>
+            </asp:Panel>
+
             <div class="cert_grid">
-                <div class="CertificateBox">
-                    <p>PHOTOGRAPHY</p>
-                    <h1>Night Photography</h1>
-                <a href="#" class="DownloadCertificateBtn">Download</a>
-                </div>
-            </div>
+                <asp:Repeater ID="rptCertificates" runat="server">
+                    <ItemTemplate>
 
-        </setion>
+                        <div class="CertificateBox">
+
+                            <p>
+                                <%# string.IsNullOrWhiteSpace(
+                                    Convert.ToString(Eval("Category")))
+                                    ? "COURSE CERTIFICATE"
+                                    : Server.HtmlEncode(
+                                        Convert.ToString(Eval("Category"))) %>
+                            </p>
+
+                            <h3>
+                                <%# Server.HtmlEncode(
+                                    Convert.ToString(Eval("courseTitle"))) %>
+                            </h3>
+
+                            <p>
+                                Certificate No.:
+                                <%# Eval("CertificateNumber") %>
+                            </p>
+
+                            <p>
+                                Issued:
+                                <%# Eval("DateCreated", "{0:dd MMM yyyy}") %>
+                            </p>
+
+                        </div>
+
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+        </section>
+
     </div>
 </asp:Content>

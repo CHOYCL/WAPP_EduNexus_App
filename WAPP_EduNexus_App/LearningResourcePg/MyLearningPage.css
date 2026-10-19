@@ -3,6 +3,14 @@
     flex-direction:column;
 }
 
+.page-container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 50px var(--container-pad, 150px);
+    box-sizing: border-box;
+}
+
 #LearningPgHeading p {
     margin: 0px;
     color: #163984;

@@ -17,7 +17,7 @@
                 </span>
             <div >
                 <p class="LearningPgBoxTitle">ENROLLED</p>
-                <p class="LearningPgBoxNum">1</p>
+                <p class="LearningPgBoxNum">0</p>
             </div>
             </div>
 
@@ -37,7 +37,7 @@
                 </span>
             <div >
                 <p class="LearningPgBoxTitle">CERTIFICATE</p>
-                <p class="LearningPgBoxNum">1</p>
+                <p class="LearningPgBoxNum">0</p>
             </div>
             </div>
         </setion>

@@ -19,43 +19,109 @@ namespace WAPP_EduNexus_App
         {
             if (!IsPostBack)
             {
-                // Initial page setup can go here.
+                // Initial page setup goes here.
                 LoadCourses();
             }
         }
 
-        protected void rptAdminCourses_ItemCommand(object source, RepeaterCommandEventArgs e)
+        protected void rptAdminCourses_ItemCommand(
+            object source, RepeaterCommandEventArgs e)
         {
+             //DELETE COURSE
             if (e.CommandName == "DeleteCourse")
             {
                 int id;
-                if (int.TryParse(e.CommandArgument?.ToString(), out id))
+
+                if (!int.TryParse(e.CommandArgument?.ToString(), out id))
                 {
-                    try
+                    ShowModalMessage("Invalid course ID.", false);
+                    return;
+                }
+
+                string connStr =
+                    ConfigurationManager.ConnectionStrings[
+                        "ConnectionString"].ConnectionString;
+
+                try
+                {
+                    using (var con = new SqlConnection(connStr))
                     {
-                        string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                        using (var con = new SqlConnection(connStr))
-                        using (var cmd = new SqlCommand("DELETE FROM CourseDetailTable WHERE courseID = @id", con))
+                        con.Open();
+
+                        using (var transaction = con.BeginTransaction())
                         {
-                            cmd.Parameters.AddWithValue("@id", id);
-                            con.Open();
-                            cmd.ExecuteNonQuery();
+                            try
+                            {
+                                // Delete related materials first
+                                using (var cmdMaterials = new SqlCommand(
+                                    "DELETE FROM dbo.MaterialTable WHERE courseID = @id",
+                                    con, transaction))
+                                {
+                                    cmdMaterials.Parameters.Add(
+                                        "@id", SqlDbType.Int).Value = id;
+
+                                    cmdMaterials.ExecuteNonQuery();
+                                }
+
+                                // Delete the course
+                                using (var cmdCourse = new SqlCommand(
+                                    "DELETE FROM dbo.CourseDetailTable WHERE courseID = @id",
+                                    con, transaction))
+                                {
+                                    cmdCourse.Parameters.Add(
+                                        "@id", SqlDbType.Int).Value = id;
+
+                                    int rowsDeleted = cmdCourse.ExecuteNonQuery();
+
+                                    if (rowsDeleted == 0)
+                                    {
+                                        throw new InvalidOperationException(
+                                            "Course not found.");
+                                    }
+                                }
+
+                                transaction.Commit();
+                            }
+                            catch
+                            {
+                                try
+                                {
+                                    transaction.Rollback();
+                                }
+                                catch
+                                {
+                                    // Preserve the original error
+                                }
+
+                                throw;
+                            }
                         }
-                        LoadCourses();
                     }
-                    catch (Exception ex)
-                    {
-                        ShowModalMessage("Error deleting course: " + ex.Message, false);
-                    }
+
+                    // Refresh course list after successful deletion
+                    LoadCourses();
+                }
+                catch (Exception ex)
+                {
+                    ShowModalMessage(
+                        "Error deleting course: " + ex.Message,
+                        false);
                 }
             }
+            // EDIT COURSE - THIS MUST BE OUTSIDE THE DELETE CONDITION
             else if (e.CommandName == "EditCourse")
             {
                 int id;
+
                 if (int.TryParse(e.CommandArgument?.ToString(), out id))
                 {
-                    // Redirect to the course detail page for editing
-                    Response.Redirect("AdminManageCourseDetail.aspx?courseId=" + id);
+                    Response.Redirect(
+                        ResolveUrl(
+                            "AdminManageCourseDetail.aspx?courseId=" + id));
+                }
+                else
+                {
+                    ShowModalMessage("Invalid course ID for editing.", false);
                 }
             }
         }
@@ -321,86 +387,240 @@ namespace WAPP_EduNexus_App
             );
         }
 
-        private void LoadCourses(string searchText = null, string category = null, string level = null)
+
+        private void LoadCourses(
+            string searchText = null,
+            string category = null,
+            string level = null)
         {
-            string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            string connStr =
+                ConfigurationManager.ConnectionStrings[
+                    "ConnectionString"].ConnectionString;
+
             var dt = new DataTable();
+
             try
             {
                 using (var con = new SqlConnection(connStr))
                 {
                     con.Open();
 
-                    // Detect whether Image column exists and build SELECT accordingly to avoid SQL errors
-                    var schemaCols = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                    using (var schemaCmd = new SqlCommand("SELECT TOP 1 * FROM CourseDetailTable", con))
-                    using (var schemaAdapter = new SqlDataAdapter(schemaCmd))
+                    // Count all courses in the database
+                    using (var countCmd = new SqlCommand(
+                        "SELECT COUNT(*) FROM dbo.CourseDetailTable", con))
                     {
-                        var schemaTable = new DataTable();
-                        schemaAdapter.Fill(schemaTable);
-                        foreach (DataColumn c in schemaTable.Columns) schemaCols.Add(c.ColumnName);
+                        int totalCourses = Convert.ToInt32(
+                            countCmd.ExecuteScalar());
+
+                        ltTotalCourseCount.Text = totalCourses.ToString("N0");
                     }
 
-                    bool hasImage = schemaCols.Contains("Image");
-                    string thumbnailExpr = hasImage ? "Image AS Thumbnail" : "NULL AS Thumbnail";
+                    // Read CourseDetailTable column information
+                    var courseSchema = new DataTable();
 
-                    // Build parameterized query with optional filters
-                    var sqlBuilder = new System.Text.StringBuilder();
-                    sqlBuilder.Append($"SELECT courseID, courseTitle, Category, level, Description AS MetaInfo, Instructor AS InstructorName, Price, {thumbnailExpr}, NULL AS InstructorInitials, 0 AS Students FROM CourseDetailTable WHERE 1=1");
-
-                    var cmd = new SqlCommand();
-                    cmd.Connection = con;
-
-                    if (!string.IsNullOrWhiteSpace(searchText))
+                    using (var cmd = new SqlCommand(
+                        "SELECT TOP 0 * FROM dbo.CourseDetailTable", con))
+                    using (var da = new SqlDataAdapter(cmd))
                     {
-                        sqlBuilder.Append(" AND (courseTitle LIKE @search OR Description LIKE @search OR Instructor LIKE @search)");
-                        cmd.Parameters.AddWithValue("@search", "%" + searchText + "%");
+                        da.Fill(courseSchema);
                     }
 
+                    var courseCols = new HashSet<string>(
+                        StringComparer.OrdinalIgnoreCase);
+
+                    foreach (DataColumn col in courseSchema.Columns)
+                        courseCols.Add(col.ColumnName);
+
+                    // Read CourseCategory column information
+                    var categorySchema = new DataTable();
+
+                    using (var cmd = new SqlCommand(
+                        "SELECT TOP 0 * FROM dbo.CourseCategory", con))
+                    using (var da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(categorySchema);
+                    }
+
+                    bool hasCategory = courseCols.Contains("Category");
+
+                    bool hasCategoryLookup =
+                        hasCategory && categorySchema.Columns.Count >= 2;
+
+                    string categoryIdColumn = hasCategoryLookup
+                        ? categorySchema.Columns[0].ColumnName
+                        : "";
+
+                    string categoryNameColumn = hasCategoryLookup
+                        ? categorySchema.Columns[1].ColumnName
+                        : "";
+
+                    // Safely quote column names obtained from the database schema
+                    Func<string, string> q = name =>
+                        "[" + name.Replace("]", "]]") + "]";
+
+                    bool hasLevel = courseCols.Contains("level");
+                    bool hasDescription = courseCols.Contains("Description");
+                    bool hasInstructor = courseCols.Contains("Instructor");
+                    bool hasPrice = courseCols.Contains("Price");
+
+                    // Find the available image/thumbnail column
+                    string thumbnailExpr = "NULL AS Thumbnail";
+
+                    if (courseCols.Contains("Image"))
+                        thumbnailExpr = "cd.[Image] AS Thumbnail";
+                    else if (courseCols.Contains("Thumbnail_img"))
+                        thumbnailExpr = "cd.[Thumbnail_img] AS Thumbnail";
+                    else if (courseCols.Contains("Thumbnail"))
+                        thumbnailExpr = "cd.[Thumbnail] AS Thumbnail";
+
+                    var sql = new System.Text.StringBuilder();
+
+                    sql.Append("SELECT cd.courseID, cd.courseTitle");
+
+                    // Fetch the category display name from CourseCategory
+                    if (hasCategoryLookup)
+                    {
+                        sql.Append(
+                            ", COALESCE(CONVERT(NVARCHAR(255), cc." +
+                            q(categoryNameColumn) +
+                            "), CONVERT(NVARCHAR(255), cd.[Category])) AS Category");
+                    }
+                    else if (hasCategory)
+                    {
+                        sql.Append(", cd.[Category] AS Category");
+                    }
+                    else
+                    {
+                        sql.Append(", CAST(NULL AS NVARCHAR(255)) AS Category");
+                    }
+
+                    sql.Append(hasLevel
+                        ? ", cd.[level] AS [level]"
+                        : ", CAST(NULL AS NVARCHAR(50)) AS [level]");
+
+                    sql.Append(hasDescription
+                        ? ", cd.[Description] AS MetaInfo"
+                        : ", CAST(NULL AS NVARCHAR(MAX)) AS MetaInfo");
+
+                    sql.Append(hasInstructor
+                        ? ", cd.[Instructor] AS InstructorName"
+                        : ", CAST(NULL AS NVARCHAR(255)) AS InstructorName");
+
+                    sql.Append(hasPrice
+                        ? ", cd.[Price] AS Price"
+                        : ", CAST(NULL AS DECIMAL(18,2)) AS Price");
+
+                    sql.Append(
+                        ", " + thumbnailExpr +
+                        ", NULL AS InstructorInitials, 0 AS Students");
+
+                    sql.Append(" FROM dbo.CourseDetailTable AS cd");
+
+                    // Match either the stored category ID or an existing category name.
+                    // This also supports older courses that may store the name directly.
+                    if (hasCategoryLookup)
+                    {
+                        string storedCategory =
+                            "LTRIM(RTRIM(CONVERT(NVARCHAR(255), cd.[Category])))";
+
+                        sql.Append(
+                            " LEFT JOIN dbo.CourseCategory AS cc ON (" +
+                            storedCategory + " = LTRIM(RTRIM(CONVERT(NVARCHAR(255), cc." +
+                            q(categoryIdColumn) + "))) OR " +
+                            storedCategory + " = LTRIM(RTRIM(CONVERT(NVARCHAR(255), cc." +
+                            q(categoryNameColumn) + "))))");
+                    }
+
+                    sql.Append(" WHERE 1 = 1");
+
+                    var cmdQuery = new SqlCommand();
+                    cmdQuery.Connection = con;
+
+                    // Search only columns that exist
+                    var searchConditions = new List<string>();
+
+                    if (courseCols.Contains("courseTitle"))
+                        searchConditions.Add("cd.[courseTitle] LIKE @search");
+
+                    if (hasDescription)
+                        searchConditions.Add("cd.[Description] LIKE @search");
+
+                    if (hasInstructor)
+                        searchConditions.Add("cd.[Instructor] LIKE @search");
+
+                    if (!string.IsNullOrWhiteSpace(searchText) &&
+                        searchConditions.Count > 0)
+                    {
+                        sql.Append(
+                            " AND (" + string.Join(" OR ", searchConditions) + ")");
+
+                        cmdQuery.Parameters.AddWithValue(
+                            "@search", "%" + searchText.Trim() + "%");
+                    }
+
+                    // Category filter uses the category name from CourseCategory
                     if (!string.IsNullOrWhiteSpace(category))
                     {
-                        sqlBuilder.Append(" AND Category = @category");
-                        cmd.Parameters.AddWithValue("@category", category);
+                        if (hasCategoryLookup)
+                        {
+                            sql.Append(
+                                " AND (cc." + q(categoryNameColumn) +
+                                " = @category OR cd.[Category] = @category)");
+                        }
+                        else if (hasCategory)
+                        {
+                            sql.Append(" AND cd.[Category] = @category");
+                        }
+
+                        cmdQuery.Parameters.AddWithValue("@category", category);
                     }
 
-                    if (!string.IsNullOrWhiteSpace(level))
+                    if (!string.IsNullOrWhiteSpace(level) && hasLevel)
                     {
-                        sqlBuilder.Append(" AND level = @level");
-                        cmd.Parameters.AddWithValue("@level", level);
+                        sql.Append(" AND cd.[level] = @level");
+                        cmdQuery.Parameters.AddWithValue("@level", level);
                     }
 
-                    sqlBuilder.Append(" ORDER BY courseID DESC");
+                    sql.Append(" ORDER BY cd.courseID DESC");
 
-                    cmd.CommandText = sqlBuilder.ToString();
+                    cmdQuery.CommandText = sql.ToString();
 
-                    using (var da = new SqlDataAdapter(cmd))
+                    using (var da = new SqlDataAdapter(cmdQuery))
                     {
                         da.Fill(dt);
                     }
-                    cmd.Dispose();
+
+                    cmdQuery.Dispose();
                 }
 
+                // Display the courses
                 if (dt.Rows.Count == 0)
                 {
-                    ltCoursesMessage.Text = "<div class='no-courses'>No courses found.</div>";
+                    ltCoursesMessage.Text =
+                        "<div class='no-courses'>No courses found.</div>";
+
                     rptAdminCourses.Visible = false;
-                    ltCoursesCount.Text = string.Empty;
+                    ltCoursesCount.Text = "";
                 }
                 else
                 {
-                    ltCoursesMessage.Text = string.Empty;
+                    ltCoursesMessage.Text = "";
                     rptAdminCourses.Visible = true;
                     rptAdminCourses.DataSource = dt;
                     rptAdminCourses.DataBind();
-                    ltCoursesCount.Text = $"<div class='courses-count'>Showing {dt.Rows.Count} courses</div>";
+
+                    ltCoursesCount.Text =
+                        $"<div class='courses-count'>Showing {dt.Rows.Count} courses</div>";
                 }
             }
             catch (Exception ex)
             {
-                // Show an admin-visible message so load errors are not silently ignored
-                ltCoursesMessage.Text = "<div class='error'>Error loading courses: " + HttpUtility.HtmlEncode(ex.Message) + "</div>";
+                ltCoursesMessage.Text =
+                    "<div class='error'>Error loading courses: " +
+                    HttpUtility.HtmlEncode(ex.Message) + "</div>";
             }
         }
+
         // Client-side modal functions are implemented in the ASPX markup as JavaScript.
     }
 }

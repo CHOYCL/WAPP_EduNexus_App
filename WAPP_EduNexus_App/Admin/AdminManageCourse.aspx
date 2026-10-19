@@ -15,8 +15,7 @@
         <section class="Section2">
             <div class="total-course-card">
                 <p>TOTAL COURSE</p>
-                <p></p>
-                <p></p>
+                <p class="total-course-number"><asp:Literal ID="ltTotalCourseCount" runat="server" Text="0" /></p>
             </div>
             <div class="total-course-active-card">
                 <p>ACTIVE ENROLLEES</p>
@@ -85,9 +84,6 @@
                             </div>
 
                             <div class="course-info">
-                                <div class="course-thumbnail">
-                                    <%# string.IsNullOrEmpty(Convert.ToString(Eval("Thumbnail"))) ? "<img src='/assets/images/default-course.png' alt='' />" : ("<img src='" + ResolveUrl("~/" + Convert.ToString(Eval("Thumbnail")).TrimStart('/') ) + "' alt='' />") %>
-                                </div>
                                 <div class="course-details">
                                     <h3><%# Eval("courseTitle") %></h3>
                                     <p><%# Eval("MetaInfo") %></p>
@@ -99,8 +95,8 @@
                                 <span><%# Eval("InstructorName") %></span>
                             </div>
 
-                            <div><span class="category-tag"><%# Eval("Category") %></span></div>
-                            <div><span class="level-tag"><%# Eval("level") %></span></div>
+                           <div class="course-category"><span class="category-tag"><%# string.IsNullOrWhiteSpace(Convert.ToString(Eval("Category")))? "Not set": Server.HtmlEncode(Convert.ToString(Eval("Category"))) %></span></div>
+                            <div class="course-level"><span class="level-tag"><%# string.IsNullOrWhiteSpace(Convert.ToString(Eval("level")))? "Not set": Server.HtmlEncode(Convert.ToString(Eval("level"))) %></span></div>
                             <div class="course-price"><%# Eval("Price", "{0:C}") %></div>
 
                             <div class="course-rating">

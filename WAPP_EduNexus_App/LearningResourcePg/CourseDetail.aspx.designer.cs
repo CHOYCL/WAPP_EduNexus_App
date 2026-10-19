@@ -15,48 +15,75 @@ namespace WAPP_EduNexus_App
     {
 
         /// <summary>
-        /// lblBreadcrumbCourse control.
+        /// imgCourseMedia control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBreadcrumbCourse;
+        protected global::System.Web.UI.WebControls.Image imgCourseMedia;
 
         /// <summary>
-        /// lblCourseTitle control.
+        /// courseVID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCourseTitle;
+        protected global::System.Web.UI.HtmlControls.HtmlVideo courseVID;
 
         /// <summary>
-        /// lblCategory control.
+        /// videoSource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlSource videoSource;
 
         /// <summary>
-        /// lblLevel control.
+        /// ltCourseTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLevel;
+        protected global::System.Web.UI.WebControls.Literal ltCourseTitle;
 
         /// <summary>
-        /// SqlDataSource1 control.
+        /// ltMaterialDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.Literal ltMaterialDescription;
+
+        /// <summary>
+        /// ltCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltCategory;
+
+        /// <summary>
+        /// ltLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltLevel;
+
+        /// <summary>
+        /// ltInstructor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltInstructor;
     }
 }

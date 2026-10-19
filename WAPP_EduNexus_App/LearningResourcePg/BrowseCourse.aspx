@@ -39,37 +39,71 @@
             </div>
         </section>
 
-        <section class="CourseSection">
-            <div class="CourseGrid">
-                <a href="../LearningResourcePg/CourseDetail.aspx" class="Course-Card">
+
+<section class="CourseSection">
+    <div class="CourseGrid">
+
+        <asp:Literal ID="ltBrowseMessage" runat="server" />
+
+        <asp:Repeater ID="rptCourses" runat="server">
+            <ItemTemplate>
+
+                <asp:HyperLink
+                    ID="lnkCourse"
+                    runat="server"
+                    CssClass="Course-Card"
+                    NavigateUrl='<%# ResolveUrl("~/LearningResourcePg/CourseDetail.aspx?courseId=" + Eval("courseID")) %>'>
+
                     <div class="CourseCard">
-                        <img src="../IMG/PhotographyCardPhoto.jpg"
-                             class="course-image"
-                             alt="Night Photography" />
+
+                        <img
+                            src='<%# HttpUtility.HtmlAttributeEncode(Convert.ToString(Eval("ImageUrl"))) %>'
+                            class="course-image"
+                            alt='<%# HttpUtility.HtmlAttributeEncode(Convert.ToString(Eval("courseTitle"))) %>' />
 
                         <div class="course-content">
-                            <h2>Night Photography</h2>
+
+                            <h2>
+                                <%# Server.HtmlEncode(Convert.ToString(Eval("courseTitle"))) %>
+                            </h2>
 
                             <p>
-                                Learn to see, light, and pose. This course walks
-                                through natural + studio setups and shows you...
+                                <%# string.IsNullOrWhiteSpace(Convert.ToString(Eval("Description")))
+                                    ? "Explore this course to build new skills."
+                                    : Server.HtmlEncode(Convert.ToString(Eval("Description"))) %>
                             </p>
 
                             <div class="course-info">
-                                <span>3 lessons</span>
-                                <span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="18" height="18" viewBox="0 0 24 24" style="color: rgb(74, 85, 101); opacity: 1; transform: rotate(0deg);"><path fill="currentColor" fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7m-1.5 8a4 4 0 0 0-4 4a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2a4 4 0 0 0-4-4zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293a3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2a4 4 0 0 0-4-4h-1.1a5.5 5.5 0 0 1-.471.762A6 6 0 0 1 19.5 18M4 7.5a3.5 3.5 0 0 1 5.477-2.889a5.5 5.5 0 0 0-2.796 6.293A3.5 3.5 0 0 1 4 7.5M7.1 12H6a4 4 0 0 0-4 4a2 2 0 0 0 2 2h.5a6 6 0 0 1 3.071-5.238A5.5 5.5 0 0 1 7.1 12" clip-rule="evenodd"></path></svg>0</span>
+                                <span>
+                                    <%# Eval("LessonCount") %> lessons
+                                </span>
                             </div>
 
                             <hr />
 
                             <div class="course-bottom">
-                                <span>PHOTOGRAPHY</span>
-                                <span>Intermediate</span>
+                                <span>
+                                    <%# string.IsNullOrWhiteSpace(Convert.ToString(Eval("Category")))
+                                        ? "Uncategorized"
+                                        : Server.HtmlEncode(Convert.ToString(Eval("Category"))) %>
+                                </span>
+
+                                <span>
+                                    <%# string.IsNullOrWhiteSpace(Convert.ToString(Eval("Level")))
+                                        ? "Not set"
+                                        : Server.HtmlEncode(Convert.ToString(Eval("Level"))) %>
+                                </span>
                             </div>
+
                         </div>
                     </div>
-                </a>
-            </div>
-        </section>
+
+                </asp:HyperLink>
+
+            </ItemTemplate>
+        </asp:Repeater>
+
+    </div>
+</section>
     </div>
 </asp:Content>

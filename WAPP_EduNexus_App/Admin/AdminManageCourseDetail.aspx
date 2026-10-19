@@ -17,6 +17,7 @@
 
                 <div class="upload-controls">
                     <asp:FileUpload ID="fuMedia" runat="server" onchange="previewSelectedMedia(this)" />
+                    <asp:Button ID="btnUploadMedia" runat="server" Text="Upload File/Video" OnClick="btnUploadMedia_Click" />
                 </div>
             </div>
             <div class ="content-description">

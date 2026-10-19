@@ -3,6 +3,15 @@
     flex-direction: column;
 }
 
+.page-container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 50px var(--container-pad, 150px);
+    box-sizing: border-box;
+}
+
+
 .CourseCatalogTitle {
     display: flex;
     flex-direction: column;
@@ -141,10 +150,19 @@
 
 .CourseGrid {
     display: grid;
-    /* 3 cards per row */
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    align-items: stretch;
     gap: 40px;
     width: 100%;
+}
+
+.Course-Card {
+    display: flex;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    min-width: 0;
 }
 
 .CourseCard {
@@ -153,8 +171,10 @@
     box-shadow: rgb(0, 0, 0, 0.05) 0px 2px 1px 0px;
     overflow: hidden;
     display: flex;
-    width: auto;
     flex-direction: column;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .CourseGrid a:hover {
@@ -165,19 +185,61 @@
 
 .course-content {
     padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
 }
 
-.course-content p {
+    .course-content h2 {
+        font-size: 20px;
+        line-height: 1.3;
+        min-height: 2.6em;
+        margin-top: 0;
+        margin-bottom: 12px;
+    }
+
+    .course-content p {
+        font-size: 14px;
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        overflow: hidden;
+        min-height: 4.5em;
+        margin-top: 0;
+    }
+
+.course-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.course-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
     font-size: 14px;
 }
 
-.course-content h2 {
-    font-size: 20px;
+    .course-bottom span {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+.course-content hr {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .CourseCard img {
     width: 100%;
-    height: auto;
+    height: 220px;
+    min-height: 220px;
     object-fit: cover;
     display: block;
 }

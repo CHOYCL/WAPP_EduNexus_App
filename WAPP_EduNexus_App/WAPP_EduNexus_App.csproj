@@ -136,6 +136,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="LearningResourcePg\CourseDetail.css" />
     <Content Include="LearningResourcePg\CourseDetail.aspx" />
     <Content Include="LearningResourcePg\BrowseCourse.aspx" />
     <Content Include="LearningResourcePg\BrowseCourse.css" />

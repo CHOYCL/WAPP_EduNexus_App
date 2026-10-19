@@ -57,11 +57,11 @@ namespace WAPP_EduNexus_App
                         // Admin goes to the admin page, everyone else is a student
                         if (role == "Admin")
                         {
-                            Response.Redirect("AdminPage.aspx");
+                            Response.Redirect("~/Admin/AdminHome.aspx");
                         }
                         else
                         {
-                            Response.Redirect("Home.aspx");
+                            Response.Redirect("~/CommonPage/Home.aspx");
                         }
                     }
                     else

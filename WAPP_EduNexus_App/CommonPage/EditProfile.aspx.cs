@@ -15,6 +15,13 @@ namespace WAPP_EduNexus_App.CommonPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Admins Profile is in another page, this is a just in case check.
+            if (Session["Role"] != null && Session["Role"].ToString() == "Admin")
+            {
+                Response.Redirect("~/Admin/AdminEditProfile.aspx");
+                return;
+            }
+
             // Check if the user is logged in
             if (Session["Username"] != null)
             {

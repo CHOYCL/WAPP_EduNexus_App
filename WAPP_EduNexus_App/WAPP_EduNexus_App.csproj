@@ -96,10 +96,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\AdminEditProfile.aspx" />
+    <Content Include="Admin\AdminHome.aspx" />
     <Content Include="Admin\AdminManageCourseDetail.css" />
     <Content Include="Admin\AdminManageCourseDetail.aspx" />
     <Content Include="Admin\AdminManageCourse.aspx" />
     <Content Include="Admin\AdminManageCourse.css" />
+    <Content Include="Admin\AdminManageUser.aspx" />
+    <Content Include="Admin\AdminManageUser.css" />
     <Content Include="App_Data\Courses.mdf" />
     <Content Include="App_Data\Courses_log.ldf">
       <DependentUpon>Courses.mdf</DependentUpon>
@@ -186,6 +190,20 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AdminEditProfile.aspx.cs">
+      <DependentUpon>AdminEditProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminEditProfile.aspx.designer.cs">
+      <DependentUpon>AdminEditProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminHome.aspx.cs">
+      <DependentUpon>AdminHome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminHome.aspx.designer.cs">
+      <DependentUpon>AdminHome.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\AdminManageCourseDetail.aspx.cs">
       <DependentUpon>AdminManageCourseDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -199,6 +217,13 @@
     </Compile>
     <Compile Include="Admin\AdminManageCourse.aspx.designer.cs">
       <DependentUpon>AdminManageCourse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminManageUser.aspx.cs">
+      <DependentUpon>AdminManageUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminManageUser.aspx.designer.cs">
+      <DependentUpon>AdminManageUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />

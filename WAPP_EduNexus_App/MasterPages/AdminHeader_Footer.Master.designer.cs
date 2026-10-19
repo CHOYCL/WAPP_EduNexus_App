@@ -60,13 +60,49 @@ namespace WAPP_EduNexus_App
         protected global::System.Web.UI.HtmlControls.HtmlAnchor ManageUsers;
 
         /// <summary>
-        /// adminProfile control.
+        /// ManageQuiz control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor adminProfile;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor ManageQuiz;
+
+        /// <summary>
+        /// ManageDiscussion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor ManageDiscussion;
+
+        /// <summary>
+        /// AdminBadge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel AdminBadge;
+
+        /// <summary>
+        /// AdminProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image AdminProfile;
+
+        /// <summary>
+        /// lblAdminName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdminName;
 
         /// <summary>
         /// ContentPlaceHolder2 control.

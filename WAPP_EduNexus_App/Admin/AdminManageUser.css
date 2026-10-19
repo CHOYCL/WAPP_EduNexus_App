@@ -1,0 +1,108 @@
+﻿/* ===== Colours =====
+   Mint Cream #EAF2EF | Alice Blue #DBEAFE | French Blue #163984 | Deep Twilight #0B0050 */
+
+/* Keeps the content centered */
+.manageusers {
+    width: 1100px;
+    max-width: 92%;
+    margin: 0 auto;
+    padding: 40px 0;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+.manageuserstitle {
+    font-size: 32px;
+    color: #163984;
+    margin: 0 0 5px 0;
+}
+
+.manageuserstext {
+    color: #555;
+    margin: 0 0 15px 0;
+}
+
+.usercount {
+    display: block;
+    font-weight: 600;
+    color: #163984;
+    margin-bottom: 20px;
+}
+
+/* Message after deleting (colour is set in the code) */
+.usermessage {
+    display: block;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* The cards sit in a grid and wrap by themselves */
+.usergrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+/* One user card */
+.usercard {
+    background-color: white;
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+}
+
+.useravatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%; /* round picture */
+    object-fit: cover; /* crops without stretching */
+    border: 3px solid #DBEAFE;
+}
+
+.usercardname {
+    font-size: 18px;
+    color: #0B0050;
+    margin: 12px 0 8px 0;
+}
+
+/* Role badge */
+.userrole {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+    .userrole.admin {
+        background-color: #163984;
+        color: white;
+    }
+
+    .userrole.student {
+        background-color: #DBEAFE;
+        color: #163984;
+    }
+
+.usercardinfo {
+    color: #555;
+    font-size: 14px;
+    margin: 8px 0 0 0;
+    word-break: break-word; /* long emails don't push the card wider */
+}
+
+/* Red delete button */
+.userdelete {
+    margin-top: 18px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 20px;
+    background-color: #D93025;
+    color: white;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    .userdelete:hover {
+        background-color: #B3261E;
+    }

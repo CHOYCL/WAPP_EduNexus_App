@@ -24,7 +24,7 @@
     <%-- HEADER TOP BAR --%>
     <header class="site-header">
       <div class="header-inner">
-        <a href="/" class="logo">EduNexus</a>
+        <a href="/CommonPage/Home.aspx" class="logo">EduNexus</a>
         <nav class="main-nav" aria-label="Primary">
             <a id="navHome"
                runat="server"

@@ -21,7 +21,7 @@
     <form id="form1" runat="server">
         <header class="site-header">
             <div class="header-inner">
-            <a href="/" class="logo">EduNexus</a>
+            <a href="/Admin/AdminHome.aspx" class="logo">EduNexus</a>
                         <nav class="main-nav" aria-label="Primary">
                 <a id="Dashboard"
                     runat="server"

@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/WAPP_EduNexus_App/App_Data/Users.mdf
+/WAPP_EduNexus_App/App_Data/Users_log.ldf

@@ -443,7 +443,6 @@ namespace WAPP_EduNexus_App
 
         protected void btnSaveTitle_Click(object sender, EventArgs e)
         {
-            // Prefer server-side textbox value when using inline panel edit, fallback to hidden field used by legacy prompt flow
             string newTitle = string.Empty;
             var tb = pnlEditTitle?.FindControl("txtTitleEdit") as TextBox;
             if (tb != null && !string.IsNullOrWhiteSpace(tb.Text))
@@ -464,7 +463,7 @@ namespace WAPP_EduNexus_App
                 using (var con = new SqlConnection(connStr))
                 {
                     con.Open();
-                    // Use schema-aware update/insert so code works regardless of which columns exist in CourseDetailTable
+                    
                     var courseCols = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                     using (var schCmd = new SqlCommand("SELECT TOP 1 * FROM CourseDetailTable", con))
                     using (var daCols = new SqlDataAdapter(schCmd))

@@ -52,7 +52,7 @@ namespace WAPP_EduNexus_App
                         {
                             try
                             {
-                                // Delete related materials first
+
                                 using (var cmdMaterials = new SqlCommand(
                                     "DELETE FROM dbo.MaterialTable WHERE courseID = @id",
                                     con, transaction))
@@ -63,7 +63,7 @@ namespace WAPP_EduNexus_App
                                     cmdMaterials.ExecuteNonQuery();
                                 }
 
-                                // Delete the course
+
                                 using (var cmdCourse = new SqlCommand(
                                     "DELETE FROM dbo.CourseDetailTable WHERE courseID = @id",
                                     con, transaction))
@@ -210,36 +210,21 @@ namespace WAPP_EduNexus_App
 
         protected void btnSaveCourse_Click(object sender, EventArgs e)
         {
-            // Get values from the form
+
             string courseTitle = txtCourseName.Text.Trim();
             string instructor = txtInstructor.Text.Trim();
             string priceText = txtPrice.Text.Trim();
-            //string category = ddlCourseCategory.SelectedValue;
+
             string level = ddlCourseLevel.SelectedValue;
             string description = txtDescription.Text.Trim();
 
-            // Validate required fields
+
             if (string.IsNullOrWhiteSpace(courseTitle))
             {
                 ShowModalMessage("Please complete all required fields.", true);
                 return;
             }
 
-            // TODO: Insert the course into your database here.
-            //
-            // Values ready for database insertion:
-            // courseName
-            // courseCode
-            // category
-            // level
-            // description
-            //
-            // Do not display a "saved successfully" message
-            // until the database insert has succeeded.
-
-            // Temporary confirmation while database integration
-            // is not yet implemented.
-            // Insert into CourseDetailTable using available columns
             string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             // handle image upload if present
             string imagePath = null;
@@ -336,7 +321,6 @@ namespace WAPP_EduNexus_App
                     {
                         if (!string.IsNullOrEmpty(hfEditingCourseId?.Value))
                         {
-                            // UPDATE existing course
                             var sets = new List<string>();
                             for (int i = 0; i < insertCols.Count; i++) sets.Add(insertCols[i] + " = " + insertParams[i]);
                             string sql = $"UPDATE CourseDetailTable SET {string.Join(",", sets)} WHERE courseID = @courseID";

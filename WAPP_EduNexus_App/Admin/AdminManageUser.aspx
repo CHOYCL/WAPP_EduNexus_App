@@ -30,9 +30,18 @@
                         <p class="usercardinfo"><%# Eval("Email") %></p>
                         <p class="usercardinfo">Phone: <%# Eval("PhoneNumber").ToString().Trim() %></p>
 
-                        <asp:Button ID="btnDelete" runat="server" Text="Delete User" CssClass="userdelete"
-                            CommandName="DeleteUser" CommandArgument='<%# Eval("Id") %>'
-                            OnClientClick="return confirm('Are you sure you want to delete this user? This cannot be undone.');" />
+                                               <div class="useractions">
+
+                            <asp:Button ID="btnPromote" runat="server" Text="Promote to Admin" CssClass="userpromote"
+                                CommandName="PromoteUser" CommandArgument='<%# Eval("Id") %>'
+                                Visible='<%# Eval("Role").ToString() != "Admin" %>'
+                                OnClientClick="return confirm('Are you sure you want to make this user an admin? They will be able to use all admin pages.');" />
+
+                            <asp:Button ID="btnDelete" runat="server" Text="Delete User" CssClass="userdelete"
+                                CommandName="DeleteUser" CommandArgument='<%# Eval("Id") %>'
+                                OnClientClick="return confirm('Are you sure you want to delete this user? This cannot be undone.');" />
+
+                        </div>
 
                     </div>
 

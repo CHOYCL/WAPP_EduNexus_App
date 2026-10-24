@@ -44,13 +44,6 @@
                     Manage Users
                 </a>
 
-                <a id="ManageQuiz"
-                    runat="server"
-                    href="~/Admin/AdminManageQuiz.aspx"
-                    class="nav-link">
-                    Manage Quiz
-                </a>
-
                 <a id="ManageDiscussion"
                     runat="server"
                     href="~/Admin/AdminManageDiscussion.aspx"

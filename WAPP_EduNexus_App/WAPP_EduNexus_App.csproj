@@ -98,6 +98,7 @@
   <ItemGroup>
     <Content Include="Admin\AdminEditProfile.aspx" />
     <Content Include="Admin\AdminHome.aspx" />
+    <Content Include="Admin\AdminHome.css" />
     <Content Include="Admin\AdminManageCourseDetail.css" />
     <Content Include="Admin\AdminManageCourseDetail.aspx" />
     <Content Include="Admin\AdminManageCourse.aspx" />

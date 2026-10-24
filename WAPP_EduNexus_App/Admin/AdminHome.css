@@ -1,0 +1,145 @@
+﻿/* ===== Colours =====
+   Mint Cream #EAF2EF | Alice Blue #DBEAFE | French Blue #163984 | Deep Twilight #0B0050 */
+
+/* Keeps the content centered */
+.dashpage {
+    width: 1100px;
+    max-width: 92%;
+    margin: 0 auto;
+    padding: 40px 0;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+.dashtitle {
+    font-size: 32px;
+    color: #163984;
+    margin: 0 0 5px 0;
+}
+
+.dashwelcome {
+    display: block;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.dashsubtitle {
+    font-size: 22px;
+    color: #0B0050;
+    margin: 40px 0 15px 0;
+}
+
+/* ===== Number cards ===== */
+.dashstats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    gap: 20px;
+}
+
+.dashstat {
+    background-color: white;
+    border-radius: 20px;
+    padding: 25px;
+}
+
+.dashstatlabel {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #555;
+}
+
+.dashstatnumber {
+    font-size: 40px;
+    font-weight: 700;
+    color: #163984;
+}
+
+/* ===== Shortcut cards ===== */
+.dashactions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    gap: 20px;
+}
+
+.dashaction {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 25px;
+    color: #555;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+    .dashaction strong {
+        color: #163984;
+        font-size: 17px;
+    }
+
+    .dashaction:hover {
+        background-color: #DBEAFE;
+    }
+
+.dashicon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 8px;
+    border-radius: 14px;
+    background-color: #DBEAFE;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashaction:hover .dashicon {
+    background-color: white;
+}
+
+/* ===== Newest users table ===== */
+.dashtablebox {
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px 25px;
+    overflow-x: auto; /* scrolls sideways on small screens */
+}
+
+.dashtable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .dashtable th {
+        text-align: left;
+        padding: 10px;
+        color: #163984;
+        font-size: 13px;
+        border-bottom: 2px solid #DBEAFE;
+    }
+
+    .dashtable td {
+        padding: 12px 10px;
+        color: #333;
+        font-size: 14px;
+        border-bottom: 1px solid #EAF2EF;
+    }
+
+/* ===== Small screens ===== */
+@media (max-width: 900px) {
+    .dashstats {
+        grid-template-columns: 1fr;
+    }
+
+    .dashactions {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+    .dashactions {
+        grid-template-columns: 1fr;
+    }
+}

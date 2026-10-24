@@ -56,54 +56,71 @@ namespace WAPP_EduNexus_App.Admin
             return pic.ToString();
         }
 
-        // Delete User button
         protected void rptUsers_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "DeleteUser")
+
+            int userId = Convert.ToInt32(e.CommandArgument);
+
+            try
             {
-                // The Id of the user whose button was clicked
-                int userId = Convert.ToInt32(e.CommandArgument);
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                con.Open();
 
-                try
+                // Find the username and role of this user
+                SqlDataAdapter da = new SqlDataAdapter("SELECT Username, Role FROM Users WHERE Id = @id", con);
+                da.SelectCommand.Parameters.AddWithValue("@id", userId);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                if (dt.Rows.Count > 0)
                 {
-                    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-                    con.Open();
+                    string username = dt.Rows[0]["Username"].ToString();
+                    string role = dt.Rows[0]["Role"].ToString();
 
-                    // Find the username of this user
-                    SqlCommand cmdName = new SqlCommand("SELECT Username FROM Users WHERE Id = @id", con);
-                    cmdName.Parameters.AddWithValue("@id", userId);
-                    string username = Convert.ToString(cmdName.ExecuteScalar());
-
-                    if (username == Session["Username"].ToString())
+                    if (e.CommandName == "DeleteUser")
                     {
-                        // Admin cannot delete own account
-                        lblMessage.Visible = true;
-                        lblMessage.ForeColor = System.Drawing.Color.Red;
-                        lblMessage.Text = "You cannot delete your own account.";
+                        if (role == "Admin")
+                        {
+                            // Admin accounts cannot be deleted
+                            lblMessage.Visible = true;
+                            lblMessage.ForeColor = System.Drawing.Color.Red;
+                            lblMessage.Text = "Admin accounts cannot be deleted.";
+                        }
+                        else
+                        {
+                            SqlCommand cmdDelete = new SqlCommand("DELETE FROM Users WHERE Id = @id", con);
+                            cmdDelete.Parameters.AddWithValue("@id", userId);
+                            cmdDelete.ExecuteNonQuery();
+
+                            lblMessage.Visible = true;
+                            lblMessage.ForeColor = System.Drawing.Color.Green;
+                            lblMessage.Text = "User " + username + " has been deleted.";
+                        }
                     }
-                    else
+                    else if (e.CommandName == "PromoteUser")
                     {
-                        SqlCommand cmdDelete = new SqlCommand("DELETE FROM Users WHERE Id = @id", con);
-                        cmdDelete.Parameters.AddWithValue("@id", userId);
-                        cmdDelete.ExecuteNonQuery();
+                        SqlCommand cmdPromote = new SqlCommand("UPDATE Users SET Role = @role WHERE Id = @id", con);
+                        cmdPromote.Parameters.AddWithValue("@role", "Admin");
+                        cmdPromote.Parameters.AddWithValue("@id", userId);
+                        cmdPromote.ExecuteNonQuery();
 
                         lblMessage.Visible = true;
                         lblMessage.ForeColor = System.Drawing.Color.Green;
-                        lblMessage.Text = "User " + username + " has been deleted.";
+                        lblMessage.Text = "User " + username + " is now an admin.";
                     }
-
-                    con.Close();
-                }
-                catch (Exception ex)
-                {
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = System.Drawing.Color.Red;
-                    lblMessage.Text = "An error occurred while deleting the user. " + ex.Message;
                 }
 
-                // Show the updated list
-                LoadUsers();
+                con.Close();
             }
+            catch (Exception ex)
+            {
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+                lblMessage.Text = "An error occurred. " + ex.Message;
+            }
+
+            // Show the updated list
+            LoadUsers();
         }
     }
 }

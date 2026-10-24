@@ -90,9 +90,33 @@
     word-break: break-word; /* long emails don't push the card wider */
 }
 
+/* Buttons at the bottom of the card */
+.useractions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+/* Blue promote button */
+.userpromote {
+    padding: 10px 24px;
+    border: 2px solid #163984;
+    border-radius: 20px;
+    background-color: #163984;
+    color: white;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+    .userpromote:hover {
+        background-color: #0B0050;
+        border-color: #0B0050;
+    }
+
 /* Red delete button */
 .userdelete {
-    margin-top: 18px;
     padding: 10px 24px;
     border: none;
     border-radius: 20px;

@@ -104,6 +104,8 @@
     <Content Include="Admin\AdminManageCourse.css" />
     <Content Include="Admin\AdminManageUser.aspx" />
     <Content Include="Admin\AdminManageUser.css" />
+    <Content Include="Admin\AdminManageDiscussion.aspx" />
+    <Content Include="Admin\AdminManageDiscussion.css" />
     <Content Include="App_Data\Courses.mdf" />
     <Content Include="App_Data\Courses_log.ldf">
       <DependentUpon>Courses.mdf</DependentUpon>
@@ -147,6 +149,8 @@
     <Content Include="Global.asax" />
     <Content Include="LearningResourcePg\MyLearningPage.aspx" />
     <Content Include="LearningResourcePg\MyLearningPage.css" />
+    <Content Include="LearningResourcePg\MyDiscussions.aspx" />
+    <Content Include="LearningResourcePg\MyDiscussions.css" />
     <Content Include="MasterPages\AdminHeader_Footer.css" />
     <Content Include="CommonPage\LoginPage.aspx" />
     <Content Include="MasterPages\AdminHeader_Footer.Master" />
@@ -226,6 +230,13 @@
     <Compile Include="Admin\AdminManageUser.aspx.designer.cs">
       <DependentUpon>AdminManageUser.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\AdminManageDiscussion.aspx.cs">
+      <DependentUpon>AdminManageDiscussion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminManageDiscussion.aspx.designer.cs">
+      <DependentUpon>AdminManageDiscussion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="CommonPage\EditProfile.aspx.cs">
@@ -241,6 +252,13 @@
     </Compile>
     <Compile Include="CommonPage\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LearningResourcePg\MyDiscussions.aspx.cs">
+      <DependentUpon>MyDiscussions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LearningResourcePg\MyDiscussions.aspx.designer.cs">
+      <DependentUpon>MyDiscussions.aspx</DependentUpon>
     </Compile>
     <Compile Include="CommonPage\RegisterPage.aspx.cs">
       <DependentUpon>RegisterPage.aspx</DependentUpon>

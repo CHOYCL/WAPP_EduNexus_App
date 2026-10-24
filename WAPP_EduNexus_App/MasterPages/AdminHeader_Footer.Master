@@ -55,7 +55,7 @@
                     runat="server"
                     href="~/Admin/AdminManageDiscussion.aspx"
                     class="nav-link">
-                    Manage Discussion
+                    Manage Discussions
                 </a>
             </nav>
 

@@ -46,6 +46,14 @@
                class="nav-link">
                 My Learning
             </a>
+
+            <a id="navDiscussions"
+               runat="server"
+               href="~/LearningResourcePg/MyDiscussions.aspx"
+               class="nav-link"
+               visible="false">
+                My Discussions
+            </a>
         </nav>
         <%-- GUEST --%>
         <asp:Panel ID="GuestBadge" runat="server" CssClass="header-auth">

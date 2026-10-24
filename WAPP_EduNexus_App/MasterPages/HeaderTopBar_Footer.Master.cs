@@ -29,6 +29,16 @@ namespace WAPP_EduNexus_App
                 navHome.Attributes["class"] = "nav-link active";
             }
 
+            navDiscussions.Visible =
+                Session["Username"] != null &&
+                Session["Role"] != null &&
+                Session["Role"].ToString() != "Admin";
+
+            if (currentPage.Equals("MyDiscussions.aspx", StringComparison.OrdinalIgnoreCase))
+            {
+                navDiscussions.Attributes["class"] = "nav-link active";
+            }
+
             if (Session["Username"] != null)
             {
                 //  show the username instead

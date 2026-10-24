@@ -56,11 +56,8 @@ namespace WAPP_EduNexus_App.Admin
             return pic.ToString();
         }
 
-        // Delete User button
         protected void rptUsers_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "DeleteUser")
-            {
                 // The Id of the user whose button was clicked
                 int userId = Convert.ToInt32(e.CommandArgument);
 

@@ -8,5 +8,76 @@ namespace WAPP_EduNexus_App.Admin
 {
     public partial class AdminManageDiscussion
     {
+
+        /// <summary>
+        /// ltAdminNotice control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Literal ltAdminNotice;
+
+        /// <summary>
+        /// adminCourseFilter control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.DropDownList adminCourseFilter;
+
+        /// <summary>
+        /// rptAdminDiscussionRows control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Repeater rptAdminDiscussionRows;
+
+        /// <summary>
+        /// adminDiscussionModal control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Panel adminDiscussionModal;
+
+        /// <summary>
+        /// ltAdminDiscussionTitle control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Literal ltAdminDiscussionTitle;
+
+        /// <summary>
+        /// ltAdminDiscussionMember control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Literal ltAdminDiscussionMember;
+
+        /// <summary>
+        /// ltAdminDiscussionCourse control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Literal ltAdminDiscussionCourse;
+
+        /// <summary>
+        /// ltAdminDiscussionDetails control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Literal ltAdminDiscussionDetails;
+
+        /// <summary>
+        /// adminStatusBadge control.
+        /// </summary>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl adminStatusBadge;
+
+        /// <summary>
+        /// ltAdminDiscussionStatus control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Literal ltAdminDiscussionStatus;
+
+        /// <summary>
+        /// adminEmptyReplies control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Panel adminEmptyReplies;
+
+        /// <summary>
+        /// rptAdminReplies control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Repeater rptAdminReplies;
+
+        /// <summary>
+        /// adminReplyInput control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.TextBox adminReplyInput;
+
+        /// <summary>
+        /// <summary>
+        /// saveAdminReply control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Button saveAdminReply;
     }
 }

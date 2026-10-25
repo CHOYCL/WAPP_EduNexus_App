@@ -96,6 +96,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Database\01_Users.sql">
+      <Link>Database\01_Users.sql</Link>
+    </None>
+    <None Include="..\Database\02_CourseDetailTable.sql">
+      <Link>Database\02_CourseDetailTable.sql</Link>
+    </None>
+    <None Include="..\Database\03_Certificate.sql">
+      <Link>Database\03_Certificate.sql</Link>
+    </None>
+    <None Include="..\Database\04_CourseCategory.sql">
+      <Link>Database\04_CourseCategory.sql</Link>
+    </None>
+    <None Include="..\Database\05_MaterialTable.sql">
+      <Link>Database\05_MaterialTable.sql</Link>
+    </None>
+    <None Include="..\Database\06_Enrollments.sql">
+      <Link>Database\06_Enrollments.sql</Link>
+    </None>
+    <None Include="..\Database\07_Discussions.sql">
+      <Link>Database\07_Discussions.sql</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Admin\AdminEditProfile.aspx" />
     <Content Include="Admin\AdminHome.aspx" />
     <Content Include="Admin\AdminHome.css" />

@@ -46,6 +46,17 @@
     margin: 10px 0 0;
 }
 
+.discussion-notice {
+    max-width: 1280px;
+    margin: 0 auto 20px;
+    padding: 12px 16px;
+    border: 1px solid #f1c6c6;
+    border-radius: 12px;
+    background: #fff5f5;
+    color: #8d2c2c;
+    font-size: 14px;
+}
+
 .discussion-primary,
 .discussion-secondary {
     border: 0;
@@ -63,6 +74,20 @@
 
 .discussion-primary:hover {
     background: #0B0050;
+    color: #fff;
+}
+
+.discussion-modal input.discussion-primary {
+    border: 1px solid #0B0050;
+    background: #fff;
+    color: #0B0050;
+    font-weight: 600;
+}
+
+.discussion-modal input.discussion-primary:hover {
+    border-color: #0B0050;
+    background: #0B0050;
+    color: #EAF2EF;
 }
 
 .discussion-secondary {
@@ -151,8 +176,8 @@
 }
 
 .status-open {
-    background: #e7f7ef;
-    color: #167a4a;
+    background: #EAF2EF;
+    color: #163984;
 }
 
 .status-answered {
@@ -205,7 +230,7 @@
 }
 
 .danger-text {
-    color: #b3261e;
+    color: #0B0050;
 }
 
 .discussion-empty {
@@ -485,6 +510,23 @@
 .thread-reply strong {
     color: #163984;
     font-size: 13px;
+}
+
+.thread-reply-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.thread-reply-author span,
+.thread-reply time {
+    color: #163984;
+    font-size: 11px;
+}
+
+.thread-reply time {
+    display: block;
+    margin-top: 7px;
 }
 
 .thread-reply p {

@@ -178,13 +178,15 @@
 }
 
 .admin-topic-button,
-.admin-row-actions button {
+.admin-row-actions button,
+.admin-row-actions a {
     border: 0;
     background: none;
     color: #163984;
     font: inherit;
     font-weight: 600;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .admin-topic-button {
@@ -218,28 +220,13 @@
 }
 
 .status-open {
-    background: #e7f7ef;
-    color: #167a4a;
-}
-
-.status-closed {
-    background: #DBEAFE;
+    background: #EAF2EF;
     color: #163984;
 }
 
 .status-answered {
     background: #DBEAFE;
     color: #163984;
-}
-
-.status-review {
-    background: #fff1d6;
-    color: #855400;
-}
-
-.status-hidden {
-    background: #f0f1f3;
-    color: #596579;
 }
 
 .admin-discussion-empty {
@@ -289,6 +276,7 @@
     color: #596579;
     font-size: 28px;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .admin-discussion-modal #adminDiscussionForm {
@@ -354,6 +342,79 @@
 
 .admin-discussion-modal textarea {
     resize: vertical;
+}
+
+.admin-discussion-modal input.admin-discussion-primary {
+    border: 1px solid #0B0050;
+    background: #fff;
+    color: #0B0050;
+}
+
+.admin-discussion-modal input.admin-discussion-primary:hover {
+    border-color: #0B0050;
+    background: #0B0050;
+    color: #EAF2EF;
+}
+
+.admin-thread-replies {
+    border-top: 1px solid #e9eeed;
+    padding-top: 16px;
+}
+
+.admin-thread-replies h3 {
+    margin: 0 0 12px;
+    color: #163984;
+    font-size: 17px;
+}
+
+.admin-thread-reply {
+    margin-bottom: 10px;
+    border-radius: 11px;
+    background: #EAF2EF;
+    padding: 12px 14px;
+}
+
+.admin-thread-reply div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-thread-reply strong,
+.admin-thread-reply span,
+.admin-thread-reply time {
+    color: #163984;
+    font-size: 12px;
+}
+
+.admin-thread-reply p {
+    margin: 5px 0;
+    color: #0B0050;
+    white-space: pre-wrap;
+}
+
+.admin-thread-reply time {
+    display: block;
+    font-size: 11px;
+}
+
+.admin-empty-replies,
+.admin-discussion-notice {
+    color: #163984;
+}
+
+.admin-discussion-notice {
+    margin: 0 0 18px;
+    border-radius: 12px;
+    background: #DBEAFE;
+    padding: 12px 15px;
+}
+
+.admin-discussion-modal .admin-discussion-secondary {
+    display: inline-flex;
+    align-items: center;
+    color: #163984;
+    text-decoration: none;
 }
 
 .admin-modal-actions {

@@ -8,5 +8,60 @@ namespace WAPP_EduNexus_App
 {
     public partial class MyDiscussions
     {
+
+        /// <summary>
+        /// memberCourseFilter control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.DropDownList memberCourseFilter;
+
+        /// <summary>
+        /// rptDiscussionList control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Repeater rptDiscussionList;
+
+        /// <summary>
+        /// memberDiscussionTitle control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.TextBox memberDiscussionTitle;
+
+        /// <summary>
+        /// memberDiscussionCourse control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.DropDownList memberDiscussionCourse;
+
+        /// <summary>
+        /// memberDiscussionBody control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.TextBox memberDiscussionBody;
+
+        /// <summary>
+        /// saveMemberDiscussion control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Button saveMemberDiscussion;
+
+        /// <summary>
+        /// memberDiscussionId control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.HiddenField memberDiscussionId;
+
+        /// <summary>
+        /// threadDiscussionId control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.HiddenField threadDiscussionId;
+
+        /// <summary>
+        /// threadReplyInput control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.TextBox threadReplyInput;
+
+        /// <summary>
+        /// saveThreadReply control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Button saveThreadReply;
+
+        /// <summary>
+        /// ltDiscussionNotice control.
+        /// </summary>
+        protected global::System.Web.UI.WebControls.Literal ltDiscussionNotice;
     }
 }

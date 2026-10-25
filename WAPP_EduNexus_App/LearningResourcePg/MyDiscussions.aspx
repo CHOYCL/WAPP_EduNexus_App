@@ -25,7 +25,7 @@
             <div class="discussion-list-heading">
                 <div>
                     <h2>Course conversations</h2>
-                    <p>Every post belongs to one course. Select a discussion to join the conversation.</p>
+                    <p>Every post belongs to one course. Its author can mark it answered, and members or admins can keep replying afterward.</p>
                 </div>
             </div>
 
@@ -40,23 +40,62 @@
                         <input type="search" id="memberDiscussionSearch" placeholder="Search discussions..." />
                     </label>
                     <label class="visually-hidden" for="memberCourseFilter">Filter by course</label>
-                    <select id="memberCourseFilter">
-                        <option value="all">All courses</option>
-                        <option value="Night Photography">Night Photography</option>
-                        <option value="Digital Design">Digital Design</option>
-                        <option value="JavaScript Basics">JavaScript Basics</option>
-                    </select>
+                    <asp:DropDownList ID="memberCourseFilter" runat="server" ClientIDMode="Static" CssClass="discussion-select" />
                     <label class="visually-hidden" for="memberStatusFilter">Filter by status</label>
                     <select id="memberStatusFilter">
                         <option value="all">All statuses</option>
                         <option value="open">Open</option>
                         <option value="answered">Answered</option>
-                        <option value="closed">Closed</option>
                     </select>
                 </div>
             </div>
 
             <div class="discussion-list" id="memberDiscussionList">
+                <asp:Repeater ID="rptDiscussionList" runat="server" OnItemCommand="rptDiscussionList_ItemCommand" OnItemDataBound="rptDiscussionList_ItemDataBound">
+                    <ItemTemplate>
+                        <article class="discussion-card"
+                            data-discussion-id='<%# Eval("DiscussionID") %>'
+                            data-title='<%# EncodeAttribute(Eval("Title")) %>'
+                            data-course-id='<%# Eval("CourseID") %>'
+                            data-course='<%# EncodeAttribute(Eval("CourseTitle")) %>'
+                            data-body='<%# EncodeAttribute(Eval("Details")) %>'
+                            data-owner='<%# DiscussionOwner(Eval("UserID")) %>'
+                            data-status='<%# Convert.ToString(Eval("Status")).ToLowerInvariant() %>'
+                            data-replies='<%# Eval("ReplyCount") %>'>
+                            <div class="discussion-card-top">
+                                <span class="discussion-course"><%#: Eval("CourseTitle") %></span>
+                                <span class='discussion-status status-<%# Convert.ToString(Eval("Status")).ToLowerInvariant() %>'><%#: Eval("Status") %></span>
+                            </div>
+                            <p class="discussion-author">Posted by <%#: Eval("Username") %></p>
+                            <h3 class="discussion-title"><%#: Eval("Title") %></h3>
+                            <p class="discussion-body"><%#: Eval("Details") %></p>
+                            <div class="discussion-card-bottom">
+                                <span class="discussion-reply-count"><%# Eval("ReplyCount") %> replies &bull; <%# FormatMalaysiaTime(Eval("CreatedAt"), "dd MMM yyyy") %></span>
+                                <div class="discussion-actions">
+                                    <button type="button" class="discussion-text-button" data-action="view">Open discussion</button>
+                                    <asp:PlaceHolder ID="ownDiscussionActions" runat="server" Visible='<%# IsDiscussionOwner(Eval("UserID")) %>'>
+                                        <asp:LinkButton ID="editMemberDiscussion" runat="server" CssClass="discussion-text-button" CommandName="Edit" CommandArgument='<%# Eval("DiscussionID") %>' CausesValidation="false">Edit</asp:LinkButton>
+                                        <asp:LinkButton ID="deleteMemberDiscussion" runat="server" CssClass="discussion-text-button danger-text" CommandName="Delete" CommandArgument='<%# Eval("DiscussionID") %>' CausesValidation="false" OnClientClick="return confirm('Delete this discussion and its replies?');">Delete</asp:LinkButton>
+                                    </asp:PlaceHolder>
+                                    <asp:PlaceHolder ID="markAnsweredContainer" runat="server" Visible='<%# CanMarkAnswered(Eval("UserID"), Eval("Status")) %>'>
+                                        <asp:LinkButton ID="markAnsweredButton" runat="server" CssClass="discussion-text-button" CommandName="MarkAnswered" CommandArgument='<%# Eval("DiscussionID") %>' CausesValidation="false">Mark answered</asp:LinkButton>
+                                    </asp:PlaceHolder>
+                                </div>
+                            </div>
+                            <div class="discussion-reply-source" hidden="hidden" aria-hidden="true">
+                                <asp:Repeater ID="rptThreadReplies" runat="server">
+                                    <ItemTemplate>
+                                        <article class="thread-reply">
+                                            <div class="thread-reply-author"><strong><%#: Eval("Username") %></strong><span><%#: ReplyRole(Eval("Role")) %></span></div>
+                                            <p><%#: Eval("ReplyText") %></p>
+                                            <time><%# FormatMalaysiaTime(Eval("CreatedAt"), "dd MMM yyyy, HH:mm") %></time>
+                                        </article>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
+                        </article>
+                    </ItemTemplate>
+                </asp:Repeater>
             </div>
             <div class="discussion-empty-state" id="memberDiscussionEmpty">
                 <div class="discussion-empty-icon" aria-hidden="true">?</div>
@@ -72,26 +111,23 @@
             <button type="button" class="discussion-modal-close" id="closeMemberModal" aria-label="Close">&times;</button>
             <p class="discussion-eyebrow">COURSE COMMUNITY</p>
             <h2 id="memberModalTitle">Start a discussion</h2>
-            <p class="discussion-modal-intro">Choose one course. Your question will appear in that course’s discussion feed.</p>
+            <p class="discussion-modal-intro">Choose one course. Your question will appear in that course&#39;s discussion feed.</p>
             <div id="memberDiscussionForm" role="form">
+                <asp:HiddenField ID="memberDiscussionId" runat="server" ClientIDMode="Static" />
                 <label for="memberDiscussionTitle">Title</label>
-                <input id="memberDiscussionTitle" name="title" maxlength="120" required placeholder="What would you like to discuss?" />
+                <asp:TextBox ID="memberDiscussionTitle" runat="server" ClientIDMode="Static" MaxLength="120" required="required" placeholder="What would you like to discuss?" />
                 <label for="memberDiscussionCourse">Course</label>
-                <select id="memberDiscussionCourse" name="course" required>
-                    <option value="">Choose a course</option>
-                    <option value="Night Photography">Night Photography</option>
-                    <option value="Digital Design">Digital Design</option>
-                    <option value="JavaScript Basics">JavaScript Basics</option>
-                </select>
+                <asp:DropDownList ID="memberDiscussionCourse" runat="server" ClientIDMode="Static" required="required" />
                 <label for="memberDiscussionBody">Details</label>
-                <textarea id="memberDiscussionBody" name="body" rows="5" maxlength="2000" required placeholder="Add details to help others join the conversation..."></textarea>
+                <asp:TextBox ID="memberDiscussionBody" runat="server" ClientIDMode="Static" TextMode="MultiLine" Rows="5" MaxLength="2000" required="required" placeholder="Add details to help others join the conversation..." />
                 <div class="discussion-form-actions">
                     <button type="button" class="discussion-secondary" id="cancelMemberModal">Cancel</button>
-                    <button type="button" class="discussion-primary" id="saveMemberDiscussion">Post discussion</button>
+                    <asp:Button ID="saveMemberDiscussion" runat="server" ClientIDMode="Static" CssClass="discussion-primary" Text="Post discussion" OnClick="saveMemberDiscussion_Click" />
                 </div>
             </div>
         </section>
     </div>
+    <asp:Literal ID="ltDiscussionNotice" runat="server" EnableViewState="false" />
 
     <div class="discussion-modal-backdrop" id="threadModal" hidden>
         <section class="discussion-modal thread-modal" role="dialog" aria-modal="true" aria-labelledby="threadTitle">
@@ -105,9 +141,10 @@
                 <p id="threadEmptyReplies">No replies yet. Add the first reply.</p>
             </section>
             <label for="threadReplyInput">Your reply</label>
-            <textarea id="threadReplyInput" rows="3" maxlength="1000" placeholder="Write a helpful reply..."></textarea>
+            <asp:HiddenField ID="threadDiscussionId" runat="server" ClientIDMode="Static" />
+            <asp:TextBox ID="threadReplyInput" runat="server" ClientIDMode="Static" TextMode="MultiLine" Rows="3" MaxLength="2000" placeholder="Write a helpful reply..." />
             <div class="discussion-form-actions">
-                <button type="button" class="discussion-primary" id="postThreadReply">Post reply</button>
+                <asp:Button ID="saveThreadReply" runat="server" CssClass="discussion-primary" Text="Post reply" OnClick="saveThreadReply_Click" CausesValidation="false" formnovalidate="formnovalidate" />
             </div>
         </section>
     </div>
@@ -121,8 +158,8 @@
             var courseInput = document.getElementById('memberDiscussionCourse');
             var bodyInput = document.getElementById('memberDiscussionBody');
             var threadModal = document.getElementById('threadModal');
-            var currentThreadCard = null;
-            var editingCard = null;
+            var initialThreadId = <%= InitialThreadId %>;
+            var initialEditId = <%= InitialEditId %>;
 
             function openComposer() {
                 modal.hidden = false;
@@ -134,71 +171,9 @@
                 titleInput.value = '';
                 courseInput.value = '';
                 bodyInput.value = '';
-                editingCard = null;
+                document.getElementById('memberDiscussionId').value = '';
                 document.getElementById('memberModalTitle').textContent = 'Start a discussion';
-                document.getElementById('saveMemberDiscussion').textContent = 'Post discussion';
-            }
-
-            function makeAction(label, action, extraClass) {
-                var button = document.createElement('button');
-                button.type = 'button';
-                button.className = 'discussion-text-button' + (extraClass ? ' ' + extraClass : '');
-                button.dataset.action = action;
-                button.textContent = label;
-                return button;
-            }
-
-            function makeCard(title, course, body) {
-                var card = document.createElement('article');
-                card.className = 'discussion-card';
-                card.dataset.title = title;
-                card.dataset.course = course;
-                card.dataset.body = body;
-                card.dataset.owner = 'mine';
-                card.dataset.status = 'open';
-                card.dataset.replies = '0';
-                card._replies = [];
-
-                var top = document.createElement('div');
-                top.className = 'discussion-card-top';
-                var courseTag = document.createElement('span');
-                courseTag.className = 'discussion-course';
-                courseTag.textContent = course;
-                var status = document.createElement('span');
-                status.className = 'discussion-status status-open';
-                status.textContent = 'Open';
-                top.appendChild(courseTag);
-                top.appendChild(status);
-
-                var author = document.createElement('p');
-                author.className = 'discussion-author';
-                author.textContent = 'Posted by you';
-
-                var heading = document.createElement('h3');
-                heading.className = 'discussion-title';
-                heading.textContent = title;
-                var description = document.createElement('p');
-                description.className = 'discussion-body';
-                description.textContent = body;
-                var bottom = document.createElement('div');
-                bottom.className = 'discussion-card-bottom';
-                var meta = document.createElement('span');
-                meta.className = 'discussion-reply-count';
-                meta.textContent = '0 replies • Just now';
-                var actions = document.createElement('div');
-                actions.className = 'discussion-actions';
-                actions.appendChild(makeAction('Open discussion', 'view'));
-                actions.appendChild(makeAction('Edit', 'edit'));
-                actions.appendChild(makeAction('Delete', 'delete', 'danger-text'));
-                bottom.appendChild(meta);
-                bottom.appendChild(actions);
-
-                card.appendChild(top);
-                card.appendChild(author);
-                card.appendChild(heading);
-                card.appendChild(description);
-                card.appendChild(bottom);
-                return card;
+                document.getElementById('saveMemberDiscussion').value = 'Post discussion';
             }
 
             function updateCount() {
@@ -225,7 +200,7 @@
                 cards.forEach(function (card) {
                     var text = (card.dataset.title + ' ' + card.dataset.course + ' ' + card.dataset.body).toLowerCase();
                     var matches = (!query || text.indexOf(query) !== -1) &&
-                        (course === 'all' || card.dataset.course === course) &&
+                        (course === 'all' || card.dataset.courseId === course) &&
                         (status === 'all' || card.dataset.status === status) &&
                         (activeTab !== 'mine' || card.dataset.owner === 'mine');
                     card.hidden = !matches;
@@ -246,25 +221,18 @@
             }
 
             function openThread(card) {
-                currentThreadCard = card;
                 document.getElementById('threadCourse').textContent = card.dataset.course;
                 document.getElementById('threadTitle').textContent = card.dataset.title;
                 document.getElementById('threadBody').textContent = card.dataset.body;
                 document.getElementById('threadReplyInput').value = '';
+                document.getElementById('threadDiscussionId').value = card.dataset.discussionId;
                 var replyList = document.getElementById('threadReplyList');
                 replyList.textContent = '';
-                (card._replies || []).forEach(function (reply) {
-                    var replyItem = document.createElement('article');
-                    replyItem.className = 'thread-reply';
-                    var author = document.createElement('strong');
-                    author.textContent = 'You';
-                    var text = document.createElement('p');
-                    text.textContent = reply;
-                    replyItem.appendChild(author);
-                    replyItem.appendChild(text);
-                    replyList.appendChild(replyItem);
+                var replyItems = card.querySelectorAll('.discussion-reply-source .thread-reply');
+                Array.prototype.forEach.call(replyItems, function (reply) {
+                    replyList.appendChild(reply.cloneNode(true));
                 });
-                document.getElementById('threadEmptyReplies').hidden = (card._replies || []).length > 0;
+                document.getElementById('threadEmptyReplies').hidden = replyItems.length > 0;
                 threadModal.hidden = false;
                 document.getElementById('threadReplyInput').focus();
             }
@@ -280,21 +248,6 @@
             threadModal.addEventListener('click', function (event) {
                 if (event.target === threadModal) threadModal.hidden = true;
             });
-            document.getElementById('postThreadReply').addEventListener('click', function () {
-                var replyInput = document.getElementById('threadReplyInput');
-                var reply = replyInput.value.trim();
-                if (!reply || !currentThreadCard) {
-                    replyInput.focus();
-                    return;
-                }
-                currentThreadCard._replies = currentThreadCard._replies || [];
-                currentThreadCard._replies.push(reply);
-                currentThreadCard.dataset.replies = currentThreadCard._replies.length;
-                currentThreadCard.querySelector('.discussion-reply-count').textContent = currentThreadCard.dataset.replies + ' replies • Just now';
-                updateCount();
-                openThread(currentThreadCard);
-            });
-
             document.querySelectorAll('.discussion-tab').forEach(function (tab) {
                 tab.addEventListener('click', function () {
                     document.querySelectorAll('.discussion-tab').forEach(function (item) {
@@ -313,62 +266,38 @@
                 var card = button.closest('.discussion-card');
                 if (button.dataset.action === 'view') {
                     openThread(card);
-                    return;
                 }
-                if (button.dataset.action === 'delete') {
-                    if (window.confirm('Delete this discussion?')) {
-                        card.remove();
-                        updateCount();
-                        applyFilters();
-                    }
-                    return;
-                }
-                editingCard = card;
-                titleInput.value = card.dataset.title;
-                courseInput.value = card.dataset.course;
-                bodyInput.value = card.dataset.body;
-                document.getElementById('memberModalTitle').textContent = 'Edit discussion';
-                document.getElementById('saveMemberDiscussion').textContent = 'Save changes';
-                modal.hidden = false;
-                titleInput.focus();
             });
 
             form.addEventListener('keydown', function (event) {
                 if (event.key === 'Enter' && event.target.tagName === 'INPUT') event.preventDefault();
             });
 
-            document.getElementById('saveMemberDiscussion').addEventListener('click', function () {
+            document.getElementById('saveMemberDiscussion').addEventListener('click', function (event) {
                 var requiredFields = [titleInput, courseInput, bodyInput];
                 for (var fieldIndex = 0; fieldIndex < requiredFields.length; fieldIndex++) {
                     if (!requiredFields[fieldIndex].checkValidity()) {
+                        event.preventDefault();
                         requiredFields[fieldIndex].reportValidity();
                         return;
                     }
                 }
-                var title = titleInput.value.trim();
-                var course = courseInput.value;
-                var body = bodyInput.value.trim();
-                if (!title || !course || !body) return;
-
-                if (editingCard) {
-                    editingCard.dataset.title = title;
-                    editingCard.dataset.course = course;
-                    editingCard.dataset.body = body;
-                    editingCard.querySelector('.discussion-course').textContent = course;
-                    editingCard.querySelector('.discussion-title').textContent = title;
-                    editingCard.querySelector('.discussion-body').textContent = body;
-                } else {
-                    list.insertBefore(makeCard(title, course, body), list.firstChild);
-                    updateCount();
-                }
-                closeModal();
-                applyFilters();
             });
 
             document.getElementById('memberDiscussionSearch').addEventListener('input', applyFilters);
             document.getElementById('memberCourseFilter').addEventListener('change', applyFilters);
             document.getElementById('memberStatusFilter').addEventListener('change', applyFilters);
+            updateCount();
             applyFilters();
+            if (initialEditId > 0) {
+                document.getElementById('memberModalTitle').textContent = 'Edit discussion';
+                document.getElementById('saveMemberDiscussion').value = 'Save changes';
+                openComposer();
+            }
+            if (initialThreadId > 0) {
+                var initialThread = list.querySelector('[data-discussion-id="' + initialThreadId + '"]');
+                if (initialThread) openThread(initialThread);
+            }
         }());
     </script>
 </asp:Content>

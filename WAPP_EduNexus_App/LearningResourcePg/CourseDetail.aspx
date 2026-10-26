@@ -7,6 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 <link href="../Admin/AdminManageCourseDetail.css" rel="stylesheet" />
+<link href="CourseDetail.css" rel="stylesheet" />
 
     <div class="page-container">
         <section class="Section1">
@@ -61,6 +62,32 @@
                 <!-- Instructor -->
                 <div class="tag-row">
                     <asp:Literal ID="ltInstructor" runat="server" />
+                </div>
+
+            </div>
+
+            <div>
+                <!-- Instructor -->
+                <div class="tag-row">
+                    <asp:Literal ID="Literal1" runat="server" />
+                </div>
+
+                <!-- Enroll Course button and result message -->
+                <div class="enroll-action">
+                    <asp:Button
+                        ID="btnEnrollCourse"
+                        runat="server"
+                        Text="Enroll Course"
+                        CssClass="small-button"
+                        OnClick="btnEnrollCourse_Click"
+                        CausesValidation="false" />
+
+                    <asp:Label
+                        ID="lblEnrollMessage"
+                        runat="server"
+                        Visible="false"
+                        CssClass="enroll-message"
+                        EnableViewState="false" />
                 </div>
 
             </div>

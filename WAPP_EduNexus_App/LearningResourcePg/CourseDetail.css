@@ -1,3 +1,19 @@
 ﻿body {
 
 }
+
+input#ContentPlaceHolder1_btnEnrollCourse {
+    padding: 8px 22px;
+    border: none;
+    border-radius: 20px;
+    background-color: #163984;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+input#ContentPlaceHolder1_btnEnrollCourse:hover{
+    background-color:#0b0050;
+}

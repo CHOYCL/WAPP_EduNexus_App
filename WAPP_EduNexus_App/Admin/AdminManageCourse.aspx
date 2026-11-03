@@ -105,6 +105,7 @@
 
                             <div class="course-actions" style="display:none;">
                                 <asp:Button runat="server" CssClass="action-button" Text="Edit" CommandName="EditCourse" CommandArgument='<%# Eval("courseID") %>' />
+                                <asp:Button runat="server" CssClass="action-button" Text="Modules" CommandName="ManageModules" CommandArgument='<%# Eval("courseID") %>' />
                                 <asp:Button runat="server" CssClass="action-button1" Text="Delete" CommandName="DeleteCourse" CommandArgument='<%# Eval("courseID") %>' OnClientClick="return confirm('Delete this course?');" />
                             </div>
                         </div>

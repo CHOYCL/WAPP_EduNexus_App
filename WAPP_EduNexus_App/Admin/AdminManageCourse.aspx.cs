@@ -124,6 +124,12 @@ namespace WAPP_EduNexus_App
                     ShowModalMessage("Invalid course ID for editing.", false);
                 }
             }
+            else if (e.CommandName == "ManageModules")
+            {
+                int id;
+                if (int.TryParse(e.CommandArgument?.ToString(), out id))
+                    Response.Redirect(ResolveUrl("AdminManageModule.aspx?courseId=" + id));
+            }
         }
 
         protected void btnCreateCourse_Click(object sender, EventArgs e)

@@ -88,6 +88,9 @@
                         Visible="false"
                         CssClass="enroll-message"
                         EnableViewState="false" />
+
+                    <asp:HyperLink ID="lnkStartLearning" runat="server" Text="Start learning" Visible="false"
+    Style="display:inline-block; margin-top:8px; padding:8px 20px; background:#163984; color:#fff; border-radius:20px; font-size:14px; font-weight:600; white-space:nowrap;" />
                 </div>
 
             </div>

@@ -441,6 +441,9 @@ namespace WAPP_EduNexus_App
         {
             btnEnrollCourse.Text = "Enrolled";
             btnEnrollCourse.Enabled = false;
+
+            lnkStartLearning.NavigateUrl = "ModuleLearn.aspx?courseId=" + Request.QueryString["courseId"];
+            lnkStartLearning.Visible = true;
         }
 
         private void AddEnrollmentParameters(SqlCommand cmd, int userId, int courseId)

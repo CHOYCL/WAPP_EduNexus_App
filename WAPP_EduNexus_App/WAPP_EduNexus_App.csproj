@@ -126,10 +126,14 @@
     <Content Include="Admin\AdminManageCourseDetail.aspx" />
     <Content Include="Admin\AdminManageCourse.aspx" />
     <Content Include="Admin\AdminManageCourse.css" />
+    <Content Include="Admin\AdminManageMaterial.aspx" />
+    <Content Include="Admin\AdminManageModule.aspx" />
+    <Content Include="Admin\AdminManageQuiz.aspx" />
     <Content Include="Admin\AdminManageUser.aspx" />
     <Content Include="Admin\AdminManageUser.css" />
     <Content Include="Admin\AdminManageDiscussion.aspx" />
     <Content Include="Admin\AdminManageDiscussion.css" />
+    <Content Include="Admin\AdminMarkAnswers.aspx" />
     <Content Include="App_Data\Courses.mdf" />
     <Content Include="App_Data\Courses_log.ldf">
       <DependentUpon>Courses.mdf</DependentUpon>
@@ -171,10 +175,14 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="LearningResourcePg\ModuleLearn.aspx" />
     <Content Include="LearningResourcePg\MyLearningPage.aspx" />
     <Content Include="LearningResourcePg\MyLearningPage.css" />
     <Content Include="LearningResourcePg\MyDiscussions.aspx" />
     <Content Include="LearningResourcePg\MyDiscussions.css" />
+    <Content Include="Content\QuizModule.css" />
+    <Content Include="LearningResourcePg\QuizResult.aspx" />
+    <Content Include="LearningResourcePg\TakeQuiz.aspx" />
     <Content Include="MasterPages\AdminHeader_Footer.css" />
     <Content Include="CommonPage\LoginPage.aspx" />
     <Content Include="MasterPages\AdminHeader_Footer.Master" />
@@ -247,6 +255,27 @@
     <Compile Include="Admin\AdminManageCourse.aspx.designer.cs">
       <DependentUpon>AdminManageCourse.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\AdminManageMaterial.aspx.cs">
+      <DependentUpon>AdminManageMaterial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminManageMaterial.aspx.designer.cs">
+      <DependentUpon>AdminManageMaterial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminManageModule.aspx.cs">
+      <DependentUpon>AdminManageModule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminManageModule.aspx.designer.cs">
+      <DependentUpon>AdminManageModule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminManageQuiz.aspx.cs">
+      <DependentUpon>AdminManageQuiz.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminManageQuiz.aspx.designer.cs">
+      <DependentUpon>AdminManageQuiz.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\AdminManageUser.aspx.cs">
       <DependentUpon>AdminManageUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -260,6 +289,13 @@
     </Compile>
     <Compile Include="Admin\AdminManageDiscussion.aspx.designer.cs">
       <DependentUpon>AdminManageDiscussion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminMarkAnswers.aspx.cs">
+      <DependentUpon>AdminMarkAnswers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminMarkAnswers.aspx.designer.cs">
+      <DependentUpon>AdminMarkAnswers.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -276,6 +312,13 @@
     </Compile>
     <Compile Include="CommonPage\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LearningResourcePg\ModuleLearn.aspx.cs">
+      <DependentUpon>ModuleLearn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LearningResourcePg\ModuleLearn.aspx.designer.cs">
+      <DependentUpon>ModuleLearn.aspx</DependentUpon>
     </Compile>
     <Compile Include="LearningResourcePg\MyDiscussions.aspx.cs">
       <DependentUpon>MyDiscussions.aspx</DependentUpon>
@@ -328,6 +371,21 @@
     </Compile>
     <Compile Include="LearningResourcePg\MyLearningPage.aspx.designer.cs">
       <DependentUpon>MyLearningPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LearningResourcePg\QuizHelper.cs" />
+    <Compile Include="LearningResourcePg\QuizResult.aspx.cs">
+      <DependentUpon>QuizResult.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LearningResourcePg\QuizResult.aspx.designer.cs">
+      <DependentUpon>QuizResult.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LearningResourcePg\TakeQuiz.aspx.cs">
+      <DependentUpon>TakeQuiz.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LearningResourcePg\TakeQuiz.aspx.designer.cs">
+      <DependentUpon>TakeQuiz.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPages\AdminHeader_Footer.Master.cs">
       <DependentUpon>AdminHeader_Footer.Master</DependentUpon>

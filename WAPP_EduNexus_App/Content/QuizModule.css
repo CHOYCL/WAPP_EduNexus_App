@@ -1,0 +1,429 @@
+﻿/* QuizModule.css - shared styles for the module, material and quiz pages.
+   Colours, font and button shape follow the EduNexus master pages
+   (Poppins, --navy / --text-dark / --text-muted, pill buttons like Login and Sign Up).
+   Place in the Content folder. Every class starts with qz- so nothing clashes with other pages. */
+
+.qz-page {
+    --qz-primary: #163984; /* logo and active nav colour */
+    --qz-primary-dark: #0B0050; /* Sign Up hover colour */
+    --qz-soft: #DBEAFE; /* Login hover colour */
+    --qz-border: rgba(23, 27, 33, 0.10);
+    color: var(--text-dark, #171B21);
+}
+
+.qz-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 8px 0 4px;
+}
+
+.qz-sub, .qz-muted {
+    color: var(--text-muted, #5B6472);
+    font-size: 14px;
+}
+
+.qz-back {
+    display: inline-block;
+    margin-bottom: 6px;
+    color: var(--qz-primary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+    .qz-back:hover, .qz-link:hover {
+        text-decoration: underline;
+    }
+
+.qz-link {
+    color: var(--qz-primary);
+}
+
+/* Cards and forms */
+.qz-card {
+    background: #fff;
+    border: 1px solid var(--qz-border);
+    border-radius: 16px;
+    padding: 22px;
+    margin: 16px 0;
+}
+
+.qz-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 12px;
+}
+
+.qz-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+    .qz-row .qz-field {
+        flex: 1 1 200px;
+    }
+
+.qz-field {
+    margin-bottom: 12px;
+}
+
+    .qz-field label {
+        display: block;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+.qz-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #C9D2CC;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #fff;
+    color: inherit;
+}
+
+    .qz-input:focus {
+        outline: 2px solid var(--blue-accent, #2F5AAC);
+        outline-offset: 0;
+        border-color: transparent;
+    }
+
+.qz-input-sm {
+    max-width: 110px;
+}
+
+.qz-help {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted, #5B6472);
+    margin-top: 4px;
+}
+
+.qz-error {
+    color: #B42318;
+    font-size: 13px;
+    display: block;
+    margin-top: 2px;
+}
+
+/* Messages */
+.qz-msg {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin: 12px 0;
+    font-size: 14px;
+}
+
+.qz-msg-ok {
+    background: #ECFDF3;
+    color: #067647;
+    border: 1px solid #ABEFC6;
+}
+
+.qz-msg-err {
+    background: #FEF3F2;
+    color: #B42318;
+    border: 1px solid #FECDCA;
+}
+
+/* Buttons: pill shape, same as the header Login / Sign Up buttons */
+.qz-btn {
+    display: inline-block;
+    padding: 8px 22px;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.qz-btn-primary {
+    background: var(--qz-primary);
+    border-color: var(--qz-primary);
+    color: #fff;
+}
+
+    .qz-btn-primary:hover {
+        background: var(--qz-primary-dark);
+        border-color: var(--qz-primary-dark);
+    }
+
+.qz-btn-light {
+    background: transparent;
+    border-color: var(--qz-primary);
+    color: var(--qz-primary);
+}
+
+    .qz-btn-light:hover {
+        background: var(--qz-soft);
+    }
+
+.qz-btn-danger {
+    background: transparent;
+    border-color: #B42318;
+    color: #B42318;
+}
+
+    .qz-btn-danger:hover {
+        background: #FEF3F2;
+    }
+
+.qz-actions {
+    white-space: nowrap;
+}
+
+    .qz-actions .qz-btn {
+        padding: 4px 14px;
+        font-size: 13px;
+    }
+
+.qz-links a {
+    margin-right: 12px;
+    color: var(--qz-primary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+    .qz-links a:hover {
+        text-decoration: underline;
+    }
+
+/* Tables */
+.qz-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+    .qz-table th {
+        text-align: left;
+        padding: 8px 10px;
+        border-bottom: 2px solid var(--qz-border);
+        color: var(--text-muted, #5B6472);
+        font-weight: 600;
+    }
+
+    .qz-table td {
+        padding: 12px 10px;
+        border-bottom: 1px solid var(--qz-border);
+        vertical-align: top;
+    }
+
+/* Tags and badges */
+.qz-tag, .qz-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--avatar-bg, #CDD8F6);
+    color: var(--navy, #1C3B6E);
+}
+
+.qz-tag-Short {
+    background: #D1F2F7;
+    color: #0E5A66;
+}
+
+.qz-tag-Long {
+    background: #FDE9B8;
+    color: #8A4B05;
+}
+
+.qz-tag-Video {
+    background: #FAD7E8;
+    color: #8E1F52;
+}
+
+.qz-tag-Reading {
+    background: #DDF2C4;
+    color: #3B6410;
+}
+
+.qz-tag-Pending {
+    background: #FDE9B8;
+    color: #8A4B05;
+}
+
+.qz-tag-Graded {
+    background: #CFF1DC;
+    color: #0B6B3A;
+}
+
+.qz-badge-pass {
+    background: #CFF1DC;
+    color: #0B6B3A;
+}
+
+.qz-badge-fail {
+    background: #FCD9D6;
+    color: #912018;
+}
+
+.qz-badge-wait {
+    background: #FDE9B8;
+    color: #8A4B05;
+}
+
+/* Student learning layout */
+.qz-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.qz-sidebar {
+    background: #fff;
+    border: 1px solid var(--qz-border);
+    border-radius: 16px;
+    padding: 12px;
+}
+
+    .qz-sidebar h3 {
+        margin: 4px 8px 10px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+.qz-module-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 8px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+    .qz-module-link:hover {
+        background: var(--bg-mint, #E7F0EA);
+    }
+
+    .qz-module-link.active {
+        background: var(--qz-soft);
+        color: var(--qz-primary);
+        font-weight: 600;
+    }
+
+.qz-module-no {
+    flex: 0 0 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--avatar-bg, #CDD8F6);
+    color: var(--navy, #1C3B6E);
+    text-align: center;
+    line-height: 26px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.qz-module-name {
+    flex: 1;
+}
+
+.qz-video {
+    width: 100%;
+    max-height: 480px;
+    background: #000;
+    border-radius: 12px;
+}
+
+.qz-reading, .qz-student-answer {
+    white-space: pre-wrap;
+    line-height: 1.7;
+}
+
+.qz-student-answer {
+    background: var(--bg-mint, #E7F0EA);
+    border-radius: 10px;
+    padding: 12px;
+    margin: 8px 0;
+}
+
+/* Taking the quiz */
+.qz-question {
+    margin: 14px 0;
+}
+
+.qz-q-head {
+    font-size: 16px;
+    margin: 0 0 10px;
+}
+
+.qz-options td {
+    padding: 4px 8px 4px 0;
+}
+
+.qz-options label {
+    margin-left: 6px;
+}
+
+/* Result and review */
+.qz-result {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin: 12px 0;
+}
+
+.qz-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.qz-stat-num {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--qz-primary);
+}
+
+.qz-stat-label {
+    color: var(--text-muted, #5B6472);
+    font-size: 13px;
+}
+
+.qz-pass {
+    color: #067647;
+    font-weight: 600;
+}
+
+.qz-fail {
+    color: #B42318;
+    font-weight: 600;
+}
+
+.qz-review {
+    border-left: 5px solid #C9D2CC;
+}
+
+.qz-review-ok {
+    border-left-color: #12B76A;
+}
+
+.qz-review-bad {
+    border-left-color: #F04438;
+}
+
+.qz-review-part {
+    border-left-color: #F79009;
+}
+
+.qz-review-pending {
+    border-left-color: #98A2B3;
+}
+
+@media (max-width: 800px) {
+    .qz-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .qz-table {
+        display: block;
+        overflow-x: auto;
+    }
+}

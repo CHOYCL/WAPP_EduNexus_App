@@ -10,19 +10,21 @@
 .Section1 {
     display: flex;
     flex-direction: column;
+}
 
+.TitleSection {
+    width: fit-content;
 }
-.TitleSection{
-    width:fit-content;
-}
-.TitleSection h1 {
-    font-size: 36px;
-    margin-bottom: 0px;
-}
-.TitleSection p{
-    font-size: 14px;
-    margin-top:0px;
-}
+
+    .TitleSection h1 {
+        font-size: 36px;
+        margin-bottom: 0px;
+    }
+
+    .TitleSection p {
+        font-size: 14px;
+        margin-top: 0px;
+    }
 
 button {
     width: 100%;
@@ -36,9 +38,9 @@ button {
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #1c3968;
-}
+    button:hover {
+        background-color: #1c3968;
+    }
 
 
 input#ContentPlaceHolder2_btnCreateCourse {
@@ -50,7 +52,7 @@ input#ContentPlaceHolder2_btnCreateCourse {
     width: 100%;
     height: 50px;
     border-radius: 15px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 
@@ -171,9 +173,9 @@ input#ContentPlaceHolder2_btnCreateCourse {
     cursor: pointer;
 }
 
-.apply-button:hover {
-    background-color: #1c3968;
-}
+    .apply-button:hover {
+        background-color: #1c3968;
+    }
 
 .filter-dropdown {
     appearance: none;
@@ -225,7 +227,7 @@ input#ContentPlaceHolder2_btnCreateCourse {
 .Section4 {
     width: 100%;
     overflow-x: auto;
-    border-radius:20px;
+    border-radius: 20px;
 }
 
 /* HEADER AND COURSE ROWS */
@@ -349,8 +351,7 @@ input#ContentPlaceHolder2_btnCreateCourse {
     border-style: none;
     font-size: 14px;
     font-weight: bold;
-    cursor:pointer;
-    
+    cursor: pointer;
 }
 
 .action-button1 {
@@ -478,27 +479,32 @@ input#ContentPlaceHolder2_btnCreateCourse {
 .course-pagination {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 20px;
     padding: 16px;
     min-width: 950px;
+    box-sizing: border-box;
     font-size: 13px;
     color: #64748b;
+    border-top: 1px solid #edf0f5;
+    background: #ffffff;
 }
 
 .page-size {
     display: flex;
     align-items: center;
     gap: 8px;
+    white-space: nowrap;
 }
 
-    .page-size select {
-        padding: 7px 10px;
-        border: none;
-        border-radius: 6px;
-        background: #f1f3ff;
-        color: #1e293b;
-        cursor: pointer;
-    }
+.page-size-dropdown {
+    padding: 7px 10px;
+    border: none;
+    border-radius: 6px;
+    background: #f1f3ff;
+    color: #1e293b;
+    cursor: pointer;
+}
 
 .page-buttons {
     display: flex;
@@ -507,33 +513,42 @@ input#ContentPlaceHolder2_btnCreateCourse {
     margin-left: auto;
 }
 
-    .page-buttons button {
-        width: 34px;
+    .page-buttons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        min-width: 34px;
         height: 34px;
-        border: none;
+        padding: 0 8px;
         border-radius: 7px;
         background: transparent;
         color: #1e293b;
+        text-decoration: none;
         cursor: pointer;
     }
 
-        .page-buttons button:hover:not(:disabled) {
+        .page-buttons a:hover:not(.aspNetDisabled):not(.current-page) {
             background: #e5e7eb;
-        }
-
-        .page-buttons button:disabled {
-            color: #cbd5e1;
-            cursor: not-allowed;
         }
 
     .page-buttons .current-page {
         background: #1e40af;
-        color: white;
+        color: #ffffff;
+        cursor: default;
     }
 
-        .page-buttons .current-page:hover {
-            background: #1e40af;
-        }
+    .page-buttons .aspNetDisabled:not(.current-page) {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 34px;
+        height: 34px;
+        padding: 0 8px;
+        color: #cbd5e1;
+        text-decoration: none;
+        cursor: not-allowed;
+    }
 
 /* SMALL SCREENS */
 @media (max-width: 768px) {
@@ -603,6 +618,7 @@ input#ContentPlaceHolder2_btnCreateCourse {
         font-size: 24px;
         color: #1f2937;
     }
+
 
 /* CLOSE BUTTON */
 .close {
@@ -694,3 +710,9 @@ textarea.form-input {
     .save-button:hover {
         background-color: #1d4ed8;
     }
+
+p.total-course-number {
+    margin-top: 0;
+    font-size: xx-large;
+    color: #163984;
+}

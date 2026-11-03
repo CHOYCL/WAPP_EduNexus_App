@@ -14,20 +14,31 @@ namespace WAPP_EduNexus_App
 {
     public partial class AdminManageCourse : System.Web.UI.Page
     {
-        // Page_Init removed — rely on the markup OnClick attribute to wire btnSaveCourse_Click.
+        // Stores the selected page between Web Forms postbacks.
+        private int CurrentPage
+        {
+            get
+            {
+                object value = ViewState["CurrentPage"];
+                return value == null ? 1 : Convert.ToInt32(value);
+            }
+            set
+            {
+                ViewState["CurrentPage"] = value;
+            }
+        }
+
+        // Bind the repeaters on every request so their LinkButtons are recreated
+        // before ASP.NET raises pagination and course-command postback events.
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                // Initial page setup goes here.
-                LoadCourses();
-            }
+            ReloadCoursesUsingCurrentFilters();
         }
 
         protected void rptAdminCourses_ItemCommand(
             object source, RepeaterCommandEventArgs e)
         {
-             //DELETE COURSE
+            //DELETE COURSE
             if (e.CommandName == "DeleteCourse")
             {
                 int id;
@@ -98,8 +109,8 @@ namespace WAPP_EduNexus_App
                         }
                     }
 
-                    // Refresh course list after successful deletion
-                    LoadCourses();
+                    // Refresh the current filtered course list after deletion.
+                    ReloadCoursesUsingCurrentFilters();
                 }
                 catch (Exception ex)
                 {
@@ -210,8 +221,54 @@ namespace WAPP_EduNexus_App
             string category = ddlCategory.SelectedValue;
             string level = ddlLevel.SelectedValue;
 
-            // Apply filters and reload the course list
+            // A new search/filter should always start from page 1.
+            CurrentPage = 1;
             LoadCourses(searchText, category, level);
+        }
+
+        protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Changing the number of rows per page starts again at page 1.
+            CurrentPage = 1;
+            ReloadCoursesUsingCurrentFilters();
+        }
+
+        protected void btnPreviousPage_Click(object sender, EventArgs e)
+        {
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+            }
+
+            ReloadCoursesUsingCurrentFilters();
+        }
+
+        protected void btnNextPage_Click(object sender, EventArgs e)
+        {
+            CurrentPage++;
+            ReloadCoursesUsingCurrentFilters();
+        }
+
+        protected void rptPagination_ItemCommand(
+            object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "GoToPage")
+            {
+                int selectedPage;
+                if (int.TryParse(Convert.ToString(e.CommandArgument), out selectedPage))
+                {
+                    CurrentPage = selectedPage;
+                    ReloadCoursesUsingCurrentFilters();
+                }
+            }
+        }
+
+        private void ReloadCoursesUsingCurrentFilters()
+        {
+            LoadCourses(
+                txtSearch.Text.Trim(),
+                ddlCategory.SelectedValue,
+                ddlLevel.SelectedValue);
         }
 
         protected void btnSaveCourse_Click(object sender, EventArgs e)
@@ -378,6 +435,40 @@ namespace WAPP_EduNexus_App
         }
 
 
+        private void LoadEnrollmentStatistics(SqlConnection con)
+        {
+            const string sql = @"
+                SELECT
+                    COUNT(DISTINCT CASE
+                        WHEN LTRIM(RTRIM(ISNULL([Status], N''))) = N'In Progress'
+                        THEN UserID
+                    END) AS ActiveEnrollees,
+                    SUM(CASE
+                        WHEN LTRIM(RTRIM(ISNULL([Status], N''))) = N'Completed'
+                        THEN 1
+                        ELSE 0
+                    END) AS CompletedCourses
+                FROM dbo.Enrollments;";
+
+            using (var cmd = new SqlCommand(sql, con))
+            using (var reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    int activeEnrollees = reader["ActiveEnrollees"] == DBNull.Value
+                        ? 0
+                        : Convert.ToInt32(reader["ActiveEnrollees"]);
+
+                    int completedCourses = reader["CompletedCourses"] == DBNull.Value
+                        ? 0
+                        : Convert.ToInt32(reader["CompletedCourses"]);
+
+                    ltActiveEnrolleesCount.Text = activeEnrollees.ToString("N0");
+                    ltCompletedCoursesCount.Text = completedCourses.ToString("N0");
+                }
+            }
+        }
+
         private void LoadCourses(
             string searchText = null,
             string category = null,
@@ -404,6 +495,13 @@ namespace WAPP_EduNexus_App
 
                         ltTotalCourseCount.Text = totalCourses.ToString("N0");
                     }
+
+                    // Update the enrolment dashboard totals.
+                    // Active Enrollees = distinct users with at least one
+                    // enrolment whose status is In Progress.
+                    // Completed Courses = number of completed user-course
+                    // enrolment records.
+                    LoadEnrollmentStatistics(con);
 
                     // Read CourseDetailTable column information
                     var courseSchema = new DataTable();
@@ -583,24 +681,71 @@ namespace WAPP_EduNexus_App
                     cmdQuery.Dispose();
                 }
 
-                // Display the courses
-                if (dt.Rows.Count == 0)
+                // Display only the records belonging to the selected page.
+                int totalFilteredCourses = dt.Rows.Count;
+
+                if (totalFilteredCourses == 0)
                 {
                     ltCoursesMessage.Text =
                         "<div class='no-courses'>No courses found.</div>";
 
                     rptAdminCourses.Visible = false;
+                    rptAdminCourses.DataSource = null;
+                    rptAdminCourses.DataBind();
                     ltCoursesCount.Text = "";
+                    pnlPagination.Visible = false;
+                    rptPagination.DataSource = null;
+                    rptPagination.DataBind();
                 }
                 else
                 {
                     ltCoursesMessage.Text = "";
                     rptAdminCourses.Visible = true;
-                    rptAdminCourses.DataSource = dt;
+
+                    int pageSize = 10;
+                    int selectedPageSize;
+
+                    if (ddlPageSize != null &&
+                        int.TryParse(ddlPageSize.SelectedValue, out selectedPageSize) &&
+                        selectedPageSize > 0)
+                    {
+                        pageSize = selectedPageSize;
+                    }
+
+                    int totalPages = (int)Math.Ceiling(
+                        (double)totalFilteredCourses / pageSize);
+
+                    // Keep the current page within the valid range, for example
+                    // when a course is deleted from the last page.
+                    if (CurrentPage < 1)
+                    {
+                        CurrentPage = 1;
+                    }
+                    if (CurrentPage > totalPages)
+                    {
+                        CurrentPage = totalPages;
+                    }
+
+                    int startIndex = (CurrentPage - 1) * pageSize;
+                    int endIndex = Math.Min(startIndex + pageSize, totalFilteredCourses);
+
+                    DataTable pageTable = dt.Clone();
+                    for (int i = startIndex; i < endIndex; i++)
+                    {
+                        pageTable.ImportRow(dt.Rows[i]);
+                    }
+
+                    rptAdminCourses.DataSource = pageTable;
                     rptAdminCourses.DataBind();
 
+                    int firstItem = startIndex + 1;
+                    int lastItem = endIndex;
                     ltCoursesCount.Text =
-                        $"<div class='courses-count'>Showing {dt.Rows.Count} courses</div>";
+                        "<div class='courses-count'>Showing " +
+                        firstItem + " to " + lastItem + " of " +
+                        totalFilteredCourses + " courses</div>";
+
+                    BindPagination(totalPages);
                 }
             }
             catch (Exception ex)
@@ -608,7 +753,44 @@ namespace WAPP_EduNexus_App
                 ltCoursesMessage.Text =
                     "<div class='error'>Error loading courses: " +
                     HttpUtility.HtmlEncode(ex.Message) + "</div>";
+
+                pnlPagination.Visible = false;
+                rptAdminCourses.Visible = false;
             }
+        }
+
+        private void BindPagination(int totalPages)
+        {
+            if (totalPages <= 0)
+            {
+                rptPagination.DataSource = null;
+                rptPagination.DataBind();
+                btnPreviousPage.Enabled = false;
+                btnNextPage.Enabled = false;
+                pnlPagination.Visible = false;
+                return;
+            }
+
+            DataTable pages = new DataTable();
+            pages.Columns.Add("PageNumber", typeof(int));
+            pages.Columns.Add("CssClass", typeof(string));
+            pages.Columns.Add("IsEnabled", typeof(bool));
+
+            for (int page = 1; page <= totalPages; page++)
+            {
+                bool isCurrentPage = (page == CurrentPage);
+                pages.Rows.Add(
+                    page,
+                    isCurrentPage ? "current-page" : "page-number",
+                    !isCurrentPage);
+            }
+
+            rptPagination.DataSource = pages;
+            rptPagination.DataBind();
+
+            btnPreviousPage.Enabled = CurrentPage > 1;
+            btnNextPage.Enabled = CurrentPage < totalPages;
+            pnlPagination.Visible = totalPages > 0;
         }
 
         // Client-side modal functions are implemented in the ASPX markup as JavaScript.

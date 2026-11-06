@@ -57,9 +57,9 @@ namespace WAPP_EduNexus_App
                             attemptNo = r.GetInt32(0);
                             totalMarks = r.GetInt32(1);
                             score = r.GetDecimal(2);
-                            status = r.GetString(3);
+                            status = r.IsDBNull(3) ? string.Empty : r.GetString(3).Trim();
                             percentage = r.IsDBNull(4) ? (decimal?)null : r.GetDecimal(4);
-                            grade = r.IsDBNull(5) ? "-" : r.GetString(5);
+                            grade = r.IsDBNull(5) ? "-" : r.GetString(5).Trim();
                             passed = !r.IsDBNull(6) && r.GetBoolean(6);
                             moduleId = r.GetInt32(7);
                             courseId = r.GetInt32(8);
@@ -69,6 +69,16 @@ namespace WAPP_EduNexus_App
                     }
 
                     lnkBack.NavigateUrl = "ModuleLearn.aspx?courseId=" + courseId + "&moduleId=" + moduleId;
+
+                    // A course is completed only when the student has passed
+                    // at least one graded quiz attempt for every module.
+                    bool courseCompleted = false;
+                    if (status == "Graded" && passed)
+                    {
+                        courseCompleted = TryCompleteCourseAndIssueCertificate(
+                            con, userId, courseId);
+                    }
+
                     AttemptState state = QuizHelper.GetAttemptState(con, userId, moduleId);
 
                     // ----- Summary -----
@@ -87,6 +97,17 @@ namespace WAPP_EduNexus_App
                         if (passed)
                         {
                             html.Append("<p class=\"qz-pass\">You passed this quiz.</p>");
+
+                            if (courseCompleted)
+                            {
+                                string certificateUrl = ResolveUrl(
+                                    "~/LearningResourcePg/DownloadCertificate.aspx?courseId=" + courseId);
+
+                                html.Append("<p class=\"qz-pass\">Congratulations! You have passed all modules in this course. Your course is now completed.</p>");
+                                html.Append("<p><a class=\"qz-certificate-link\" href=\"" +
+                                    HttpUtility.HtmlAttributeEncode(certificateUrl) +
+                                    "\">Download PDF Certificate</a></p>");
+                            }
                         }
                         else
                         {
@@ -216,6 +237,134 @@ namespace WAPP_EduNexus_App
 
             html.Append("</div>");
             return html.ToString();
+        }
+
+        // Completes the user's course and issues one certificate when every
+        // module has at least one graded quiz attempt marked as passed.
+        // A module with no passed graded attempt prevents course completion.
+        private bool TryCompleteCourseAndIssueCertificate(
+            SqlConnection con, int userId, int courseId)
+        {
+            using (SqlTransaction transaction =
+                con.BeginTransaction(IsolationLevel.Serializable))
+            {
+                try
+                {
+                    int totalModules;
+                    using (SqlCommand cmd = new SqlCommand(@"
+                        SELECT COUNT(*)
+                        FROM dbo.ModuleTable
+                        WHERE courseID = @CourseID;", con, transaction))
+                    {
+                        cmd.Parameters.Add("@CourseID", SqlDbType.Int).Value = courseId;
+                        totalModules = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+
+                    // Do not issue certificates for a course with no modules.
+                    if (totalModules == 0)
+                    {
+                        transaction.Commit();
+                        return false;
+                    }
+
+                    int modulesNotPassed;
+                    using (SqlCommand cmd = new SqlCommand(@"
+                        SELECT COUNT(*)
+                        FROM dbo.ModuleTable AS m
+                        WHERE m.courseID = @CourseID
+                          AND NOT EXISTS
+                          (
+                              SELECT 1
+                              FROM dbo.QuizAttemptTable AS qa
+                              WHERE qa.moduleID = m.moduleID
+                                AND qa.UserID = @UserID
+                                AND LTRIM(RTRIM(ISNULL(qa.[status], N''))) = N'Graded'
+                                AND ISNULL(qa.isPassed, 0) = 1
+                          );", con, transaction))
+                    {
+                        cmd.Parameters.Add("@CourseID", SqlDbType.Int).Value = courseId;
+                        cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
+                        modulesNotPassed = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+
+                    // At least one module has not yet been passed.
+                    if (modulesNotPassed > 0)
+                    {
+                        transaction.Commit();
+                        return false;
+                    }
+
+                    // The student must have an enrolment for this course.
+                    int updatedRows;
+                    using (SqlCommand cmd = new SqlCommand(@"
+                        UPDATE dbo.Enrollments
+                        SET [Status] = N'Completed'
+                        WHERE UserID = @UserID
+                          AND courseID = @CourseID;", con, transaction))
+                    {
+                        cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
+                        cmd.Parameters.Add("@CourseID", SqlDbType.Int).Value = courseId;
+                        updatedRows = cmd.ExecuteNonQuery();
+                    }
+
+                    if (updatedRows == 0)
+                    {
+                        transaction.Commit();
+                        return false;
+                    }
+
+                    // Prevent duplicate certificate records for the same
+                    // student and course, including repeated result-page visits.
+                    bool certificateExists;
+                    using (SqlCommand cmd = new SqlCommand(@"
+                        SELECT COUNT(*)
+                        FROM dbo.CertificateTable WITH (UPDLOCK, HOLDLOCK)
+                        WHERE UserID = @UserID
+                          AND CourseID = @CourseID;", con, transaction))
+                    {
+                        cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
+                        cmd.Parameters.Add("@CourseID", SqlDbType.Int).Value = courseId;
+                        certificateExists = Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+                    }
+
+                    if (!certificateExists)
+                    {
+                        string certificateNumber =
+                            "EDU-" + DateTime.Now.ToString("yyyyMMdd") + "-" +
+                            Guid.NewGuid().ToString("N").Substring(0, 12).ToUpperInvariant();
+
+                        using (SqlCommand cmd = new SqlCommand(@"
+                            INSERT INTO dbo.CertificateTable
+                                (UserID, CourseID, CertificateNumber, DateCreated)
+                            VALUES
+                                (@UserID, @CourseID, @CertificateNumber, @DateCreated);",
+                            con, transaction))
+                        {
+                            cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
+                            cmd.Parameters.Add("@CourseID", SqlDbType.Int).Value = courseId;
+                            cmd.Parameters.Add("@CertificateNumber", SqlDbType.NVarChar, -1).Value = certificateNumber;
+                            cmd.Parameters.Add("@DateCreated", SqlDbType.Date).Value = DateTime.Today;
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    transaction.Commit();
+                    return true;
+                }
+                catch
+                {
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch
+                    {
+                        // Preserve the original exception.
+                    }
+
+                    throw;
+                }
+            }
         }
 
         private void Block(string message)

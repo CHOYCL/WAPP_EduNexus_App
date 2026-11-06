@@ -147,6 +147,9 @@ namespace WAPP_EduNexus_App
                     var materialColumns =
                         GetColumns(con, "dbo.MaterialTable");
 
+                    var moduleColumns =
+                        GetColumns(con, "dbo.ModuleTable");
+
                     bool hasCategory =
                         courseColumns.Contains("Category");
 
@@ -161,6 +164,9 @@ namespace WAPP_EduNexus_App
 
                     bool hasMaterialCourseId =
                         materialColumns.Contains("courseID");
+
+                    bool hasModuleCourseId =
+                        moduleColumns.Contains("courseID");
 
                     // Build a lookup for the category name.
                     string categoryApply = "";
@@ -323,10 +329,11 @@ namespace WAPP_EduNexus_App
                               ")"
                             : "CAST(NULL AS NVARCHAR(1000))";
 
-                    string lessonCountExpression =
-                        hasMaterialCourseId
-                            ? "(SELECT COUNT(*) FROM dbo.MaterialTable AS lm " +
-                              "WHERE lm.[courseID] = cd.[courseID])"
+                    // Count the modules belonging to each course.
+                    string moduleCountExpression =
+                        hasModuleCourseId
+                            ? "(SELECT COUNT(*) FROM dbo.ModuleTable AS m " +
+                              "WHERE m.[courseID] = cd.[courseID])"
                             : "0";
 
                     var sql = new StringBuilder();
@@ -346,7 +353,7 @@ namespace WAPP_EduNexus_App
                     sql.Append(imageExpression + " AS [ImagePath], ");
 
                     sql.Append(
-                        lessonCountExpression + " AS [LessonCount] ");
+                        moduleCountExpression + " AS [ModuleCount] ");
 
                     sql.Append(
                         "FROM dbo.CourseDetailTable AS cd ");

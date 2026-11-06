@@ -166,6 +166,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="LearningResourcePg\DownloadCertificate.aspx" />
     <Content Include="LearningResourcePg\CourseDetail.css" />
     <Content Include="LearningResourcePg\CourseDetail.aspx" />
     <Content Include="LearningResourcePg\BrowseCourse.aspx" />
@@ -312,6 +313,13 @@
     </Compile>
     <Compile Include="CommonPage\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LearningResourcePg\DownloadCertificate.aspx.cs">
+      <DependentUpon>DownloadCertificate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LearningResourcePg\DownloadCertificate.aspx.designer.cs">
+      <DependentUpon>DownloadCertificate.aspx</DependentUpon>
     </Compile>
     <Compile Include="LearningResourcePg\ModuleLearn.aspx.cs">
       <DependentUpon>ModuleLearn.aspx</DependentUpon>

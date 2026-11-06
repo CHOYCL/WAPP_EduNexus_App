@@ -32,7 +32,10 @@ namespace WAPP_EduNexus_App
         // before ASP.NET raises pagination and course-command postback events.
         protected void Page_Load(object sender, EventArgs e)
         {
-            ReloadCoursesUsingCurrentFilters();
+            if (!IsPostBack)
+            {
+                LoadCourses();
+            }
         }
 
         protected void rptAdminCourses_ItemCommand(

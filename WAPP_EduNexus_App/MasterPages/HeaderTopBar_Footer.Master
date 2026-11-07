@@ -95,10 +95,10 @@
         <div class="footer-links">
           <div class="footer-col">
             <p class="footer-heading">Explore</p>
-            <a href="/courses">All course</a>
-            <a href="/music">Music</a>
-            <a href="/cooking">Cooking</a>
-            <a href="/design">Design</a>
+            <a href="/LearningResourcePg/BrowseCourse.aspx">All course</a>
+            <a href="/LearningResourcePg/BrowseCourse.aspx">Music</a>
+            <a href="/LearningResourcePg/BrowseCourse.aspx">Cooking</a>
+            <a href="/LearningResourcePg/BrowseCourse.aspx">Design</a>
           </div>
           <div class="footer-col">
             <p class="footer-heading">Account</p>
